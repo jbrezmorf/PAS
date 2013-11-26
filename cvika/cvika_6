@@ -1,0 +1,80 @@
+two sample tests
+anova, regression
+
+1)
+Volf A13, datafile cvika_6_kalcit.dat
+download from: http://atrey.karlin.mff.cuni.cz/~morf/vyuka/pas/cvika/
+
+* make box plot of data
+* Is there a systematic error?  (use at least two methods)
+* Is there difference in precision?
+
+
+2) Paired data - temperature of melting and penetration (at 25 degrees)
+* Are they independent? We assume 2D normal distribution.
+
+* plot data to "see" dependency
+* use various methods of cor.test
+
+3)
+number of breaks: 0 1 2 3 4 5 6 7 and more
+frequency       :  65 121 144 99 41 15 10 5
+
+4) example(InsectSpray)
+
+Regression:
+  
+Z02     kvadraticka
+Z03     exponencialni 
+
+In R:
+
+plot(age,height)
+> res=lm(height~age)
+abline(res)
+summary(res) # tests about coefficiants
+coef(res)
+resid(res)
+fitted(res)
+? extrapolace do dalsich bodu
+predict(res, data.frame( old_Y = new_Y), level = 0.9,   interval="confidence")
+
+layout(matrix(1:4,2,2))
+plot(res)
+
+00 - residuals vs. fitted values (should be randomly around zero)
+10 - QQplot of residuals
+01 - sqrt(rel. err.) vs. fitted  (should not be trend
+
+plot(cooks.distance(lm.out))
+rlm() # from library(MASS)
+
+lines(lowess(Hwt ~ Bwt), col="red")
+scatter.smooth(Hwt ~ Bwt)
+
+
+
+
+
+
+
+
+
+
+ad 1)
+K=read.table( "cvika_6_kalcit.dat", header=T, colClasses=c("numeric", "factor"))
+boxplot( weight ~ method, data=K)
+t.test( weight ~ method, data=K)
+var.test( weight ~ method, data=K)
+ 
+ad 2) 
+cor.test( ~ temp + penetration, data=A)
+
+ad 3)
+lambda=(t(b_freq) %*% c(0:7))/sum(b_freq)
+func <- function(l) { pp=dpois(0:6,l); pp[8]=1-sum(pp); x=chisq.test(b_freq, p=pp); return <- x$p.value }
+y=lapply(x,func)
+plot(x,y)
+
+func <- function(l) { pp=dpois(0:6,l); pp[8]=1-sum(pp); x=chisq.test(b_freq, p=pp); return <- 1-x$p.value }
+optimise(func, interval=c( lambda-0.2, lambda+0.2) )

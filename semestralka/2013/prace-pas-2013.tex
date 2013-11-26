@@ -1,0 +1,196 @@
+\documentclass[a4paper,12pt]{article}
+%\usepackage[active]{srcltx}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+%
+\newtheorem{theorem}{Věta}[section]
+\newtheorem{proposition}[theorem]{Tvrzení}
+\newtheorem{definition}[theorem]{Definice}
+\newtheorem{remark}[theorem]{Poznámka}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Důsledek}
+\newtheorem{exercise}[theorem]{Cvičení}
+
+%\numberwithin{equation}{document}
+%
+\def\div{{\rm div}}
+\def\Lapl{\Delta}
+\def\grad{\nabla}
+\def\supp{{\rm supp}}
+\def\dist{{\rm dist}}
+%\def\chset{\mathbbm{1}}
+\def\chset{1}
+%
+\def\Tr{{\rm Tr}}
+\def\to{\rightarrow}
+\def\weakto{\rightharpoonup}
+\def\imbed{\hookrightarrow}
+\def\cimbed{\subset\subset}
+\def\range{{\mathcal R}}
+\def\leprox{\lesssim}
+\def\argdot{{\hspace{0.18em}\cdot\hspace{0.18em}}}
+\def\Distr{{\mathcal D}}
+\def\calK{{\mathcal K}}
+\def\FromTo{|\rightarrow}
+\def\convol{\star}
+\def\impl{\Rightarrow}
+\DeclareMathOperator*{\esslim}{esslim}
+\DeclareMathOperator*{\esssup}{ess\,supp}
+\DeclareMathOperator{\ess}{ess}
+\DeclareMathOperator{\osc}{osc}
+\DeclareMathOperator{\curl}{curl}
+%
+%\def\Ess{{\rm ess}}
+%\def\Exp{{\rm exp}}
+%\def\Implies{\Longrightarrow}
+%\def\Equiv{\Longleftrightarrow}
+% ****************************************** GENERAL MATH NOTATION
+\def\Real{{\rm\bf R}}
+\def\Rd{{{\rm\bf R}^{\rm 3}}}
+\def\RN{{{\rm\bf R}^N}}
+\def\D{{\mathbb D}}
+\def\Nnum{{\mathbb N}}
+\def\Measures{{\mathcal M}}
+\def\d{\,{\rm d}}               % differential
+\def\sdodt{\genfrac{}{}{}{1}{\rm d}{{\rm d}t}}
+\def\dodt{\genfrac{}{}{}{}{\rm d}{{\rm d}t}}
+\def\dx{\d x}
+\def\Lin{\mathit{Lin}}
+%
+\def\vc#1{\mathbf{\boldsymbol{#1}}}     % vector
+\def\tn#1{{\mathbb{#1}}}    % tensor
+\def\abs#1{\lvert#1\rvert}
+\def\Abs#1{\bigl\lvert#1\bigr\rvert}
+\def\bigabs#1{\bigl\lvert#1\bigr\rvert}
+\def\Bigabs#1{\Big\lvert#1\Big\rvert}
+\def\ABS#1{\left\lvert#1\right\rvert}
+\def\norm#1{\bigl\Vert#1\bigr\Vert} %norm
+\def\close#1{\overline{#1}}
+\def\inter#1{#1^\circ}
+\def\eqdef{\mathrel{\mathop:}=}     % defining equivalence
+\def\where{\,|\,}                    % "where" separator in set's defs
+\def\timeD#1{\dot{\overline{{#1}}}}
+%
+% ******************************************* USEFULL MACROS
+\def\RomanEnum{\renewcommand{\labelenumi}{\rm (\roman{enumi})}}   % enumerate by roman numbers
+\def\rf#1{(\ref{#1})}                                             % ref. shortcut
+\def\prtl{\partial}                                        % partial deriv.
+\def\Names#1{{\scshape #1}}
+\def\rem#1{{\parskip=0cm\par!! {\sl\small #1} !!}}
+\def\reseni#1{\par{\bf Řešení:}#1}
+%
+%
+% ******************************************* DOCUMENT NOTATIONS
+% document specific
+%***************************************************************************
+%
+%\addtolength{\textwidth}{2cm}
+%\addtolength{\vsize}{2cm}
+%\addtolength{\topmargin}{-1cm}
+%\addtolength{\hoffset}{-1cm}
+\begin{document}
+\parskip=2ex
+\parindent=0pt
+\pagestyle{empty}
+ \section*{Seminární práce z PAS 2013}
+
+ Následující úlohy vypracujte samostatně, vysvětlete jaký postup výpočtu použijete a proč, uveďte příkazy software R, kterými jste výpočet realizovali.
+
+
+ \begin{enumerate}
+  \item Při výrobě plastových výlisků G796 je zmetkovitost 4\%. Výrobce aplikuje při výstupu zkoušku, kterou výrobek projde s pravděpodobností 97\%,
+  pokud je bezvadný a s provděpodobností 7\%, pokud je vadný.
+  Vypočtěte kolik reklamací může výrobce čekat v sérii 1000 výrobků, pokud je výrobek expedován 
+  a) po projití jednou výstupní zkouškou b) po projití dvěma nezávislými výstupními zkouškami.
+
+  \item Při dopravním průzkumu byla sledována vytíženost vjezdu do křižovatky.
+  Student, provádějící průzkum, si vždy při rozsvícení zeleného světla zapsal počet aut, čekajících 
+  ve frontě u semaforu (náhodná veličina $X$). Při rozsvícené červené byla fronta vždy prázdná. Jeho zapsané výsledky jsou:
+
+4, 6, 3, 3, 6, 4, 9, 7, 5, 4, 2, 7, 5, 3, 4, 4, 7, 4, 1, 6, 4, 5, 8, 3, 5,
+7, 4, 8, 5, 7, 2, 7, 3, 4, 3, 3, 3, 3, 5, 8, 4, 2, 9, 5, 1, 10, 8, 0, 3, 4,
+5, 4, 5, 4, 5, 3, 5, 6, 3, 2, 11, 10, 4, 5, 4, 5, 9, 3, 5, 7, 3, 3, 2, 7, 3,
+7, 3, 4, 5, 5, 3, 1, 5, 2, 7, 4, 3, 7, 3, 6, 5, 3, 2, 4, 2, 4, 6, 3, 6, 3
+
+
+  Spočtěte: průměr, výběrovou odchylku, medián, a IQR. Vytvořte tabulku četností, nakreslete histogram, krabicový graf a empirickou distribucni funkci. 
+  Porovnejte data s normálním a Poisonovým rozdělením pomocí Q-Q grafu, 
+  pro parametry rozdělení použijte bodové odhady (výběrový průměr a odchylku). Proč by náhodná veličina $X$ mohla mít Poissonovo rozdělení (bez ohledu na získaná data)?
+  
+  Pomocí znaménkového testu ověřte hypotézu, že v polovině případů je počet aut ve frontě menší než $4$.
+
+  \item Bylo vyšetřeno $n_1 = 1600$ dvanáctiletých dětí ve městě, kde byla pitná voda fluorována
+ a $n_2 = 900$ dvanáctiletých dětí v blízkém městě, kde fluorována nebyla.
+U každého dítěte byl zjištěn index kazivosti chrupu. 
+Pro první skupinu byla vypočtena průměrná kazivost $3.288$ s výběrovou odchylkou $0.649$ pro 
+druhou skupinu byl průměr $3.314$ a odchylka $0.592$. Umožňují tato data spolehlivě prohlásit, že 
+fluorování vody snižuje kazivost? Použijte čistý test významnosti a pečlivě formulujte předpoklady testu.
+
+  
+  \item  Při odečtu na stupnici měřícího přístroje se poslední číslice jen odhaduje a 
+  teoreticky jsou všechny číslice stejně pravděpodobné, v praxi však mohou pozorovatelé 
+  dávat některým hodnotám přednost. V tabulce je uvedeno třista výsledků při odečtu poslední číslice. 
+  Otestujte na hladině významnosti 0.05 zda jsou data zatížena systematickou chybou, nebo zda 
+  data odpovídají rovnoměrnému rozdělení. Použijte test dobré shody nebo Kolmogorovův test.
+
+\begin{center}
+\begin{tabular}{lllllllllll}
+číslice &0 &1 &2 &3 &4 &5 &6 &7 &8 &9\\
+četnost &45 &26 &25 &27 &22 &32 &21 &26 &40 &34 
+\end{tabular}
+\end{center}
+
+ 
+  \item Pacienti podstupující bypass bylli náhodně rozděleni do tří skupin podle druhu ventilace.
+  \begin{enumerate}
+    \item Pacienti dýchají 24 hodin směs 50\% $N_2O$ a 50\% $O_2$.
+    \item Pacienti dýchají směs 50\% $N_2O$ a 50\% $O_2$ pouze během operace.
+    \item Pacienti dýchají 24 hodin směs 50\% $N_2$ a 50\% $O_2$ (vzduch s větším obsahem kyslíku). 
+  \end{enumerate}
+  Každému paciantovi byla následně změřena koncentrace vitaminu B v červených krvinkách (prorůstový faktor). Výsledky jsou:
+  
+  skupina 1: 243, 251, 275, 291, 347, 354, 380, 392, 309\\
+  skupina 2: 206, 210, 226, 249, 255, 273, 285, 295\\
+  skupina 3: 241, 258, 270, 293, 328
+  
+  Vytvořte bodový graf pro jednotlivé skupiny. Vytvořte předběžný odhad výsledků ANOVY.
+  Proveďte analýzu rozptylu s jednoduchým tříděním a post-hoc analýzu 
+  v případě významného rozdílu mezi skupinami.  Diskutujte splnění předpokladů testu.
+\end{enumerate}
+
+
+\end{document}
+
+\begin{enumerate}
+
+\item Součástky A, B, C jsou zapojeny sériově, tj. při poruše kterékoliv z nich dojde k poruše celého systému. Doba do poruchy
+      součástek má exponenciální rozdělení a poruchy na součástkéch jsou nezávislé. Střední doby do poruchy jsou pro součástku A 1000 h, pro B 2000 h a pro C 1200 h.
+      Vypočtěte střední dobu do poruchy celého systému. Pro každou součástku stanovte pravděpodobnost, že bude fungovat alespoň 500 h. Najděte distribuční funkci doby do poruchy celého systému a určete pravděpodobnost, že celý systém bude v provozuschopném stavu v čase t=200 h. 
+
+  \item Firma na těžbu zlata chce porovnat výtěžnost dvou ložisek. U prvního byly naměřeny následující hodnoty na jednotlivých vzorcích: 3,78 8,25 12,05 11,29 11,1 9,5 10,61 11,44
+
+U druhého ložiska byly naměřeny hodnoty:
+10,91 15,63 6,24 10,69 13,14 10,41 15,39 13,91 5,83 14,86
+9,35 16,01 15,52 11,8
+
+Proveďte exploratorní analýzu pro oba výběry: vytvořte graf empirických distribučních funkcí pro oba výběry, spočítejte:
+sřední hodnotu, rozptyl, šikmost, špičatost
+
+Otestujte shodu rozptylů. 
+Za předpokladu shody rozptylů otestujte na hladině významnosti $0,05$ zda jsou střední hodnoty výtěžnosti ložisek stejné.
+\item
+      Při měření závislosti hustoty vody $\rho$ na její teplotě $t$ byly naměřeny hodnoty (v kg/l):
+\begin{center}
+      \begin{tabular}{llllllllllll}
+       t & 0 & 10 & 20 & 30 & 40 & 50 & 60 & 70 & 80 & 90 & 100 \\
+       rho & 1,000 & 1,000 & 0,997 & 0,996 & 0,993 & 0,987 & 0.983 & 0.978 & 0.973 & 0.964 & 0.958
+      \end{tabular}
+
+\end{center}
+      Odhadněte koeficienty kvadratického modelu, spočtěte reziduální rozptyl a testujte hypotézu $H_0$, že závislost je pouze lineární. 
+  \end{enumerate}

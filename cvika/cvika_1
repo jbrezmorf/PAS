@@ -1,0 +1,56 @@
+1) instalace a spusteni R
+
+http://www.r-project.org/
+
+ hist(rnorm(1000))
+ hist(rnorm(1000), nclass=30)
+ plot(ecdf(rnorm(1000)))
+
+ 
+2) help, jednoduche vyrazy promenne
+3) vektory, operace s vektory
+4) data frames 
+
+frame = as.data.frame(HairEyeColor)
+new_frame = edit(frame)
+
+5) types of data
+
+
+
+
+
+
+
+
+
+
+
+-------------------------
+Datasets:
+  
+* abbey
+  qqplot(abbey, rlnorm(100)) ?? log norm distribution, needs mor carefull analysis
+  
+* ability.cov - covarince matrix
+* Animals - data.frame body-brain corelation ( in log scales - is it correct? )
+* anorexia              (control + 2 treatments), boxplots, anova, normal distr of input weight
+  PlantGrowth
+  
+* anscomb - four data sets, with same regression but linear model is wrong
+* beaver1,2 - example(beaver1) - preparing data frame + complex plot
+* birthwt - assigning levels, dependency on categorial and continuous data
+* cars - example(cars) pokrocila regerse
+---------------------
+
+homework:
+1) make list of 5 generated vectors of ten elements (rnorm(10)) 
+2) compute mean of these vectors at once by sappply and tapply functions
+
+l<-list()
+for(i in 1:5) l[[i]]=rnorm(10)
+sapply(l, mean)
+lapply(l, mean)
+
+  
+  

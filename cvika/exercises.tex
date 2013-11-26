@@ -1,0 +1,382 @@
+\documentclass[4pt]{article}
+\usepackage[a5paper]{geometry}
+\usepackage{pgfpages} 
+\pgfpagesuselayout{2 on 1}[a4paper,landscape,border shrink=5mm]
+
+%\usepackage[active]{srcltx}
+%\usepackage[czech]{babel}
+%\usepackage[utf8]{inputenc}
+\usepackage{color}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{listings}
+%
+\newtheorem{theorem}{Věta}[section]
+\newtheorem{proposition}[theorem]{Tvrzení}
+\newtheorem{definition}[theorem]{Definice}
+\newtheorem{remark}[theorem]{Poznámka}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Důsledek}
+\newtheorem{exercise}[theorem]{Cvičení}
+
+%\numberwithin{equation}{document}
+%
+\def\div{{\rm div}}
+\def\Lapl{\Delta}
+\def\grad{\nabla}
+\def\supp{{\rm supp}}
+\def\dist{{\rm dist}}
+%\def\chset{\mathbbm{1}}
+\def\chset{1}
+%
+\def\Tr{{\rm Tr}}
+\def\to{\rightarrow}
+\def\weakto{\rightharpoonup}
+\def\imbed{\hookrightarrow}
+\def\cimbed{\subset\subset}
+\def\range{{\mathcal R}}
+\def\leprox{\lesssim}
+\def\argdot{{\hspace{0.18em}\cdot\hspace{0.18em}}}
+\def\Distr{{\mathcal D}}
+\def\calK{{\mathcal K}}
+\def\FromTo{|\rightarrow}
+\def\convol{\star}
+\def\impl{\Rightarrow}
+\DeclareMathOperator*{\esslim}{esslim}
+\DeclareMathOperator*{\esssup}{ess\,supp}
+\DeclareMathOperator{\ess}{ess}
+\DeclareMathOperator{\osc}{osc}
+\DeclareMathOperator{\curl}{curl}
+%
+%\def\Ess{{\rm ess}}
+%\def\Exp{{\rm exp}}
+%\def\Implies{\Longrightarrow}
+%\def\Equiv{\Longleftrightarrow}
+% ****************************************** GENERAL MATH NOTATION
+\def\Real{{\rm\bf R}}
+\def\Rd{{{\rm\bf R}^{\rm 3}}}
+\def\RN{{{\rm\bf R}^N}}
+\def\D{{\mathbb D}}
+\def\Nnum{{\mathbb N}}
+\def\Measures{{\mathcal M}}
+\def\d{\,{\rm d}}               % differential
+\def\sdodt{\genfrac{}{}{}{1}{\rm d}{{\rm d}t}}
+\def\dodt{\genfrac{}{}{}{}{\rm d}{{\rm d}t}}
+\def\dx{\d x}
+\def\Lin{\mathit{Lin}}
+%
+\def\vc#1{\mathbf{\boldsymbol{#1}}}     % vector
+\def\tn#1{{\mathbb{#1}}}    % tensor
+\def\abs#1{\lvert#1\rvert}
+\def\Abs#1{\bigl\lvert#1\bigr\rvert}
+\def\bigabs#1{\bigl\lvert#1\bigr\rvert}
+\def\Bigabs#1{\Big\lvert#1\Big\rvert}
+\def\ABS#1{\left\lvert#1\right\rvert}
+\def\norm#1{\bigl\Vert#1\bigr\Vert} %norm
+\def\close#1{\overline{#1}}
+\def\inter#1{#1^\circ}
+\def\eqdef{\mathrel{\mathop:}=}     % defining equivalence
+\def\where{\,|\,}                    % "where" separator in set's defs
+\def\timeD#1{\dot{\overline{{#1}}}}
+%
+% ******************************************* USEFULL MACROS
+\def\RomanEnum{\renewcommand{\labelenumi}{\rm (\roman{enumi})}}   % enumerate by roman numbers
+\def\rf#1{(\ref{#1})}                                             % ref. shortcut
+\def\prtl{\partial}                                        % partial deriv.
+\def\Names#1{{\scshape #1}}
+\def\rem#1{{\parskip=0cm\par!! {\sl\small #1} !!}}
+\def\reseni#1{\par{\bf Řešení:}#1}
+%
+%
+% ******************************************* DOCUMENT NOTATIONS
+% document specific
+%***************************************************************************
+%
+
+
+\def\result#1{{\color{green} #1}}
+%\def\answer#1{{\color{red} #1}}
+\def\answer#1{}
+
+\addtolength{\textwidth}{3cm}
+\addtolength{\textheight}{4.5cm}
+\addtolength{\topmargin}{-2cm}
+\addtolength{\hoffset}{-1.5cm}
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exercise 1 (R and explratory statistics)}
+%
+% 1) vector matrix operations
+% 2) read input data (datafile with 2 random discrete and 2 scalar data, one random)
+% 3) basic visuzlization 
+% scatter plot - cars, 
+% histogram - islands
+% boxplot - InsectSprays, OrchardSprays, ToothGrowth
+% 4) generating random data (rnorm)
+% 5) data packages
+% 4) basic statistics (mean, var, sd, summary, quantile, ecdf, IQR, mad, curtoisis, skewness (own implementation))
+% 5) further poloting: matplot, pairs, cleveland plot (lattice)
+%
+% Z praxe: stihly se jen prvni dve sekce, podrobneji rozepsat, spis primo prikazy ktere mohou zadat a zjistit co to dela
+% 
+
+
+
+\subsection{Vectors and Matrices}
+
+\begin{enumerate}
+ \item assign $2$ to \verb'x', compute $\exp(-x^2)$ and assign result to \verb'gauss_x'
+ \item create a vector \verb'vx' with elements $-2,\;1,\;1.3,\;5.4$;
+ \item compute length, sum, and mean for \verb'vx', compute \verb'gauss_vx'
+ \item print even elements, print elements greater then $1$; print \verb'vx[0]' and \verb'vx[5]'
+ \item get help for \verb'seq', create vector form interval $-1,1$ with step $0.1$
+ \item get help for \verb'factor', create factor from vector \verb'c(1,3,2,1,2)', use labels A, B, C.
+ \item create (regular) matrix $2\times 2$ and find its inverse
+\end{enumerate}
+
+\subsection{Dataframes and plots}
+\begin{enumerate}
+ \item get help for dataset \verb'chickwts', rename feed to diet
+ \item unstack the dataset to list of named vectors, stack it back
+ \item make stripchart, use different colors, filled points, add title
+ \item make boxplot for individual groups, horizontal
+ \item put both into same plot
+ \item use read.table to read in file \verb'cars.txt' as \verb'cars_df'
+ \item \verb'attach' it; make scatterplot with plot command
+ \item try \verb'example(cars)'
+\end{enumerate}
+
+\subsection{Random generators}
+\begin{enumerate}
+ \item use \verb'sample' to simulate $100$ dice throws
+ \item use \verb'rnorm' to get histogram of $1000$ values with normal dist.
+ \item use \verb'ecdf' to previous data 
+ \item add plot of true CDF using \verb'pnorm'
+ \item use \verb'qqnorm'
+ \item use \verb'qqplot' directly to get same result
+\end{enumerate}
+\pagebreak
+
+\subsection{More plotting}
+
+
+
+\pagebreak
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exercise 2}
+%
+% Classical probability: 
+% 
+
+\subsection{Dice sequence}
+What is probability to throw a sequence when throwing 6 dices? \result{$0.0154$}
+Check answer numericaly using: 
+\begin{verbatim}
+gen=r...(100000, 6, rep(1,6)/6)
+is_seq=function(c) isTRUE(all.equal(...))
+sum(apply(gen,2, is_seq)) ...
+\end{verbatim}
+
+
+\subsection{Selection with replacement}
+   From 10 keys there are 3 with defect. If you take 5 randomly, what is the 
+   probability that they include 2 keys with defect? \result{$0.41666$} Give a formula in terms of comination numbers and evaluate in R
+   using: \verb'choose'
+
+   Check result with \verb'dhyper(2,3,7,5)'. Try \verb'barplot(dhyper(0:5,3,7,5))'.
+
+\begin{verbatim}  
+  key_set=c(rep(1,3),rep(0,7))
+  w_repl=replicate(10000,sum(sample(key_set, 5, replace=T)))
+  wo_repl=replicate(10000,sum(sample(key_set, 5, replace=F)))
+  
+  hist(w_repl)
+  hist(wo_repl)
+  points(0:5, 10000* dhyper(0:5, 5, 5, 5))
+  points(0:5, 10000* dbinom(0:5, 5, 0.5))
+\end{verbatim}
+% TODO: good candidate to use Claveland plot
+
+\subsection{Random Events as sets}
+What is the probability that a positive integer selected at random from
+the set of positive integers not exceeding $100$ is divisible by either $2$ or $5$?
+
+\answer{
+\[
+ P(A \vee B) = P(A) + P(B) - P(A.B) = 0.5 + 0.2 - 0.1 = 0.6 
+\]
+}
+
+
+
+\subsection{Conditional probability}
+Three machines has probabilities $0.8$, $0.7$, $0.4$ to produce a right component. 
+What is probability that you obtain exactly one right component? What are probabilities
+that this component was produced by 1., 2., 3. machine. 
+\result{
+\[
+        P(A) = 0.252,\quad 
+        P(A1/A) = 0.571\quad
+        P(A2/A) = 0.333\quad
+        P(A3/A) = 0.095
+\]        
+}
+
+
+\subsection{Total probability}
+There are $7$ white, $9$ black, and $11$ green balls in the box. We draw one ball, replace it into the box and add another $m$ balls of the same color. 
+What is the probablity to draw a black ball in the second draw?
+\answer{
+\[
+    \frac{7}{27}\cdot\frac{9}{27+m}+\frac{9}{27}\cdot\frac{9+m}{27+m}+\frac{11}{27}\cdot\frac{9}{27+m} = \frac{1}{3}
+\]    
+}
+
+\subsection{Bayes formula}
+\[
+   P(A|B) = \frac{P(B | A) P(A)}{P(B)} 
+\]
+A retail store carries a product that is supplied by three manufactures, A (30\%), B (20\%), and C(50\%). 
+Percentage of defective products of these supliers are: 2\%, 3\%, and 5\%, respectively.
+\begin{enumerate}
+ \item If a product is randomly selected from this store, what is the probability that it is
+defective? \answer{ $0.3*0.02 +0.2*0.03 + +0.5*0.05 = 0.037$ }
+ \item If a defective product is found what is the probability that it was from A? Same for B and C.
+ \answer{ $0.162$, $0.162$, $0.676$}
+\end{enumerate}
+
+
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exercise 4}
+
+\subsection{Strong law of large numbers}
+Numericaly confirm validity of the large numbers law for the average of an vector of alternative random variables.
+\[
+   \close{X}_n = \frac{1}{n} \sum_{i=1}{n} X_i, \qquad X_i \sim Alt(p)
+\]
+Plot realization of random sequence: $A_n = \close{X}_n - p$ for $n\approx 1.01^i$, $i=2,\dots,1000$.
+
+Code template:
+\begin{lstlisting}[language=r]
+# average from alternative distr.
+p_param=0.5
+avg_alt=fn=function(n) ( r.....(1,n,p_param)/n - p_param )
+
+# average from normal distr.
+mu_par=-3.0
+var_par=100000.0
+avg_norm=function(n) {
+  vec=rnorm(n,...,...)
+  return( sum(vec)/n - ... )
+} 
+
+n_vec=round(1.1^(2:100))
+avg_vec=sapply(n_vec, ...)
+plot(n_vec,avg_vec, type='l', log='x')
+\end{lstlisting}
+
+Tasks:
+\begin{enumerate}
+ \item Complete the code to get convergence plot for averages of $n$ alternative variables with $p=0.4$.
+ \item Try to set $p=0.01$. Try to change range of \verb'n_vec'.
+ \item Use \verb'avg_norm' function to get similar plot for averages of normal distribution. Does speed of convergence depend on the parameters of the normal distribution?
+\end{enumerate}
+
+\subsection{Aproximating binomial variable}
+Compute \verb'dbinom(3,100,0.37)' withou using \verb'dbinom' command. Use approximation:
+\[
+   Bi(n,p) \approx N(np,np(1-p).
+\]
+Read help for \verb'dnorm'.
+
+Complete following code to get comparison of approximation with true binomial distr.
+\begin{lstlisting}[language=r]
+...
+plot(x,dbinom(x,n,p), type="l", col="red")
+lines(x,dnorm(x, ..., ... ,col="blue")
+\end{lstlisting}
+
+
+
+\subsection{Central limit theorem}
+\begin{lstlisting}[language=r]
+
+clt_fn=function(n)  {
+  mu=...
+  sigma=...
+  avg=sum(runif(n))/n
+  return (...*(avg - mu)/sigma)
+}  
+
+N=4
+n_vec=rep(N, 10000)
+avg_vec=sapply(n_vec, clt_fn)
+hist(avg_vec, breaks=50,freq=FALSE)
+
+x=seq(-4,4,0.01)
+y=dnorm(x)
+lines(x,y, col="red")
+\end{lstlisting}
+Tasks:
+\begin{enumerate}
+ \item Try to change $N$ from $1$ up to $10$. For which $N$ it ssems that histogram match normal distribution?
+ \item Try to tune other parameters to discover difference even for large $N$.
+ \item Try to use \verb'qqnorm(avg_vec)' to detect deviation from normality.
+ \item Compute and plot difference between ECDF and \verb'pnorm'.
+\end{enumerate}
+
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Exercise 5}
+
+\subsection{Mean value tests and estimates}
+Measurement of heat conductivity of a wall gives results:
+\[
+    0.62, 0.64, 0.57,0.61, 0.59, 0.57, 0.62, 0.59
+\]
+Testujte, zda je koeficient roven $0.6$ a zda je menší než norma o hodnotě $0.6$.
+
+\begin{enumerate}
+ \item compute average and sample standard deviance
+ \item compute $t$-statistics
+ \item compute critical quantile
+ \item make two-side and one side classical test
+ \item make p-value tests
+ \item use R function \verb'test.t' to preform both tests and determine $95\%$ interval estimates
+\end{enumerate}
+
+\subsection{}
+
+
+
+Volf priklady pro AMA
+Z04 - proportion test, different size
+Z06 - odhad stredni hodnoty, velikost souboru
+Z02 - parovy t-test
+Z05 - proportion test (asymptoticky i pomoci R)
+A11 - chi-test
+A12 
+
+A01 - test na Poisonovo rozdeleni
+A05 !! - test medianu
+% 
+% Rozdil mezi pouzitim T testu a Chi2 testu pro porovnani dvou vyberu (leva vs. prava pukla panve)
+% 
+% T - test umoznuje testovat shodu strednich hodnot (i pri velkych rozptylech pokud je velke i n)
+% Chi2 - testuje shodu rozdeleni?
+%
+% ? pri interpolaci muze byt problem s nezavislosti nahodnych velicin !!
+% skrtat ty nejblizsi dvojice, ktere se prekryvaji
+% 
+% Otazka: X,Y,Z jsou nezavisle, jsou nezavisle X-Z a Y-Z, nejsou staci uvazovat alternativni X,Y=0,1; Z=0,2
+%
+
+
+\end{document}

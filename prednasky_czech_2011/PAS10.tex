@@ -1,0 +1,259 @@
+
+% $Header: /cvsroot/latex-beamer/latex-beamer/solutions/generic-talks/generic-ornate-15min-45min.en.tex,v 1.5 2007/01/28 20:48:23 tantau Exp $
+
+\documentclass[smaller]{beamer}
+\mode<presentation>
+{
+  \usetheme{Singapore}
+  \usefonttheme[onlymath]{serif}
+  % or ...
+ %  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+
+\usepackage[czech]{babel}
+% or whatever
+\usepackage[utf8]{inputenc}
+% or whatever
+%\usepackage{times}
+%\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+
+\title{PAS10 -- Analýza rozptylu}
+
+\author{Jan B\v rezina}
+\institute % (optional, but mostly needed)
+{
+  %\inst{2}%
+  Technical University of Liberec
+}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+%\beamerdefaultoverlayspecification{<+->}
+
+% ***************************************** SYMBOLS
+\def\div{{\rm div}}
+\def\Lapl{\Delta}
+\def\grad{\nabla}
+\def\supp{{\rm supp}}
+\def\dist{{\rm dist}}
+%\def\chset{\mathbbm{1}}
+\def\chset{1}
+
+\def\Tr{{\rm Tr}}
+\def\sgn{{\rm sgn}}
+\def\to{\rightarrow}
+\def\weakto{\rightharpoonup}
+\def\imbed{\hookrightarrow}
+\def\cimbed{\subset\subset}
+\def\range{{\mathcal R}}
+\def\leprox{\lesssim}
+\def\argdot{{\hspace{0.18em}\cdot\hspace{0.18em}}}
+\def\Distr{{\mathcal D}}
+\def\calK{{\mathcal K}}
+\def\FromTo{|\rightarrow}
+\def\convol{\star}
+\def\impl{\Rightarrow}
+\DeclareMathOperator*{\esslim}{esslim}
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\DeclareMathOperator{\ess}{ess}
+\DeclareMathOperator{\osc}{osc}
+\DeclareMathOperator{\curl}{curl}
+
+%\def\Ess{{\rm ess}}
+%\def\Exp{{\rm exp}}
+%\def\Implies{\Longrightarrow}
+%\def\Equiv{\Longleftrightarrow}
+% ****************************************** GENERAL MATH NOTATION
+\def\Real{{\rm\bf R}}
+\def\Rd{{{\rm\bf R}^{\rm 3}}}
+\def\RN{{{\rm\bf R}^N}}
+\def\D{{\mathbb D}}
+\def\Nnum{{\mathbb N}}
+\def\Measures{{\mathcal M}}
+\def\d{\,{\rm d}}               % differential
+\def\sdodt{\genfrac{}{}{}{1}{\rm d}{{\rm d}t}}
+\def\dodt{\genfrac{}{}{}{}{\rm d}{{\rm d}t}}
+
+\def\vc#1{\mathbf{\boldsymbol{#1}}}     % vector
+\def\tn#1{{\mathbb{#1}}}    % tensor
+\def\abs#1{\lvert#1\rvert}
+\def\Abs#1{\bigl\lvert#1\bigr\rvert}
+\def\bigabs#1{\bigl\lvert#1\bigr\rvert}
+\def\Bigabs#1{\Big\lvert#1\Big\rvert}
+\def\ABS#1{\left\lvert#1\right\rvert}
+\def\norm#1{\bigl\Vert#1\bigr\Vert} %norm
+\def\close#1{\overline{#1}}
+\def\inter#1{#1^\circ}
+\def\ol#1{\overline{#1}}
+\def\ul#1{\underline{#1}}
+\def\eqdef{\mathrel{\mathop:}=}     % defining equivalence
+\def\where{\,|\,}                    % "where" separator in set's defs
+\def\timeD#1{\dot{\overline{{#1}}}}
+
+% ******************************************* USEFULL MACROS
+\def\RomanEnum{\renewcommand{\labelenumi}{\rm (\roman{enumi})}}   % enumerate by roman numbers
+\def\rf#1{(\ref{#1})}                                             % ref. shortcut
+\def\prtl{\partial}                                        % partial deriv.
+\def\Names#1{{\scshape #1}}
+\def\rem#1{{\parskip=0cm\par!! {\sl\small #1} !!}}
+
+\def\Xint#1{\mathchoice
+{\XXint\displaystyle\textstyle{#1}}%
+{\XXint\textstyle\scriptstyle{#1}}%
+{\XXint\scriptstyle\scriptscriptstyle{#1}}%
+{\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+\!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$}
+\vcenter{\hbox{$#2#3$}}\kern-.5\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+
+% ******************************************* DOCUMENT NOTATIONS
+% document specific
+\def\rh{\varrho}
+\def\vl{{\vc{u}}}
+\def\th{\vartheta}
+\def\vx{\vc{x}}
+\def\vX{\vc{X}}
+\def\vr{\vc{r}}
+\def\veta{\vc{\eta}}
+\def\dx{\,\d\vx}
+\def\dt{\,\d t}
+\def\bulk{\zeta}
+\def\cS{\close{S}}
+\def\eps{\varepsilon}
+\def\phi{\varphi}
+\def\Bog{{\mathcal B}}
+\def\Riesz{{\mathcal R}}
+\def\distr{\mathcal D}
+\def\Item{$\bullet$}
+
+\def\MEtst{\mathcal T}
+%***************************************************************************
+\setbeamercolor{my blue}{fg=blue}
+\def\blue#1{{\usebeamercolor[fg]{my blue} #1}}
+\setbeamercolor{my green}{fg=green}
+\def\green#1{{\usebeamercolor[fg]{my green} #1}}
+\setbeamercolor{my red}{fg=red}
+\def\red#1{{\usebeamercolor[fg]{my red} #1}}
+\def\xskip{{\vspace{2ex}}}
+\def\E{\vc{\mathsf{E}}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% zvýraznění definovaného pojmu
+\def\df{\usebeamercolor[fg]{my red}\it}
+
+\begin{frame}{Motivace}
+  \begin{itemize}
+   \item Porovnání středních hodnot více ($I$)výběrů ($I>2$) s normálním rozdělením.\\
+         Závislost veličiny $Y$ na výběru $i$.
+   \item Závislost veličiny $Y$ na veličině $X$ zatížená chybou.
+ 
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Označení}
+ $Y_{11}, \dots, Y_{1n_1}$ výběr z $N(\mu_1, \sigma^2)$,\\
+ \dots,\\
+ $Y_{I1}, \dots, Y_{In_1}$ výběr z $N(\mu_I, \sigma^2)$,\\
+předpoklad stejných rozpltylů
+
+\xskip
+$I$ počet skupin, $n_i$ velikosti skupin, celkový počet $n = n_1 + \dots + n_I$\\
+skupinové průměry
+\[
+ Y_{i.} = \sum_{j=1}^{n_i} Y_{ij},\quad \ol{Y}_i = \frac{Y_{i.}}{n_i}
+\]
+celkový průměr:
+\[
+ Y_{..} = \sum_{i_1}^{I}\sum_{j=1}^{n_i} Y_{ij},\quad \ol{Y} = \frac{Y_{..}}{n}
+\]
+
+\end{frame}
+
+
+\begin{frame}{Analýza rozptylu}
+Meziakupinový (řádkový) součet čtverců:
+\[
+ SS_B= \Big(\sum_{i=1}^I n_i \ol{Y}_i^2\Big) - n\ol{Y}^2
+\]
+vnitřní (reziduální) součet čtverců:
+\[
+ SS_e = \sum_{i} (n_i - 1) S_i^2 = \sum_{i,j} Y_{ij}^2 - \sum_i n_i \ol{Y}_i^2 = SS_T  - SS_B
+\]
+celkový součet čtverců:
+\[
+ SS_T = \sum_{i,j} Y_{ij}^2 - n\ol{Y}^2
+\]
+\end{frame}
+
+\begin{frame}{Tabulka ANOVA}
+Výpočet testovací statistiky $F$ je uspořádán do standadní tabulky:
+
+\xskip
+\renewcommand*\arraystretch{1.5}
+\begin{tabular}{c|c|c|c|c}
+ & $SS$ & $df$ & $MS = SS/df$ & $F$ \\
+\hline
+
+skupiny & $SS_B$ & $df_B = I-1$ & $MS_B=SS_B / df_B$ & $F = MS_B / s^2$\\
+\hline
+reziduální &$SS_e$ & $df_e = N-I$ & $s^2 = SS_e / df_e$ &  --- \\
+\hline
+celkový & $SS_T$ & $df_T = N-1$ & ---  & ---
+\end{tabular}
+
+\xskip
+$H_0$ zamítáme pokud $F \ge F_{df_B,df_e}(\alpha)$.
+\end{frame}
+
+\begin{frame}{příklad - skripta}
+  
+\end{frame}
+
+\begin{frame}{Post-hoc analýza}
+ Které dvojice skutečně mohou za meziskupinový rozptyl?\\
+
+\xskip
+ Zamítáme $H_0: \mu_i = \mu_j$ pokud
+ \[
+   U_{ij} = \frac{ \abs{\ol{Y}_i - \ol{Y}_j} }{ s \sqrt{\big(\frac{1}{n_i} + \frac{1}{n_j} \big)} } 
+   \ge \frac{1}{\sqrt{2}} q_{I,n-I}(\alpha)
+ \]
+ $q_{m,n}(\alpha)$ tabulky --- Tukey's studentized range distribution.\\
+ Nebo Scheffeova metoda (Fischerovo rozdělení):
+ \[
+    U_{ij} \ge \sqrt{(I-1)F_{I-1,n-I}(\alpha)}
+ \]
+ Nebo pouze Studentovo rozdělení:
+ \[
+     U_{ij} \ge t_{n-I}(\alpha)
+ \] 
+\end{frame}
+
+%Order of comparison (wikipedia)
+%If there are a set of means (A, B, C, D), which can be ranked in the order A > B > C > D, not all possible comparisons need be tested using Tukey's test. To avoid redundancy, one starts by comparing the largest mean (A) with the smallest mean (D). If the qs value for the comparison of means A and D is less than the q value from the distribution, the null hypothesis is not rejected, and the means are said have no statistically significant difference between them. Since there is no difference between the two means that have the largest difference, comparing any two means that have a smaller difference is assured to yield the same conclusion (if sample sizes are identical). As a result, no other comparisons need to be made.[2]
+
+%Overall, it is important when employing Tukey's test to always start by comparing the largest mean to the smallest mean, and then the largest mean with the next smallest, etc., until the largest mean has been compared to all other means (or until no difference is found). After this, compare the second largest mean with the smallest mean, and then the next smallest, and so on. Once again, if two means are found to have no statistically significant difference, do not compare any of the means between them.[2]
+
+% Kruskal - Wallisův test (nenormalita)
+% testování shody rozptylů
+% stabilizace rozptylu
+% dvojité třídění, interakce
+
+\end{document}
+
+

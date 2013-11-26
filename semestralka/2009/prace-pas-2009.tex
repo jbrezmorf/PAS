@@ -1,0 +1,174 @@
+\documentclass[a4paper,10pt]{article}
+%\usepackage[active]{srcltx}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+%
+\newtheorem{theorem}{Věta}[section]
+\newtheorem{proposition}[theorem]{Tvrzení}
+\newtheorem{definition}[theorem]{Definice}
+\newtheorem{remark}[theorem]{Poznámka}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Důsledek}
+\newtheorem{exercise}[theorem]{Cvičení}
+
+%\numberwithin{equation}{document}
+%
+\def\div{{\rm div}}
+\def\Lapl{\Delta}
+\def\grad{\nabla}
+\def\supp{{\rm supp}}
+\def\dist{{\rm dist}}
+%\def\chset{\mathbbm{1}}
+\def\chset{1}
+%
+\def\Tr{{\rm Tr}}
+\def\to{\rightarrow}
+\def\weakto{\rightharpoonup}
+\def\imbed{\hookrightarrow}
+\def\cimbed{\subset\subset}
+\def\range{{\mathcal R}}
+\def\leprox{\lesssim}
+\def\argdot{{\hspace{0.18em}\cdot\hspace{0.18em}}}
+\def\Distr{{\mathcal D}}
+\def\calK{{\mathcal K}}
+\def\FromTo{|\rightarrow}
+\def\convol{\star}
+\def\impl{\Rightarrow}
+\DeclareMathOperator*{\esslim}{esslim}
+\DeclareMathOperator*{\esssup}{ess\,supp}
+\DeclareMathOperator{\ess}{ess}
+\DeclareMathOperator{\osc}{osc}
+\DeclareMathOperator{\curl}{curl}
+%
+%\def\Ess{{\rm ess}}
+%\def\Exp{{\rm exp}}
+%\def\Implies{\Longrightarrow}
+%\def\Equiv{\Longleftrightarrow}
+% ****************************************** GENERAL MATH NOTATION
+\def\Real{{\rm\bf R}}
+\def\Rd{{{\rm\bf R}^{\rm 3}}}
+\def\RN{{{\rm\bf R}^N}}
+\def\D{{\mathbb D}}
+\def\Nnum{{\mathbb N}}
+\def\Measures{{\mathcal M}}
+\def\d{\,{\rm d}}               % differential
+\def\sdodt{\genfrac{}{}{}{1}{\rm d}{{\rm d}t}}
+\def\dodt{\genfrac{}{}{}{}{\rm d}{{\rm d}t}}
+\def\dx{\d x}
+\def\Lin{\mathit{Lin}}
+%
+\def\vc#1{\mathbf{\boldsymbol{#1}}}     % vector
+\def\tn#1{{\mathbb{#1}}}    % tensor
+\def\abs#1{\lvert#1\rvert}
+\def\Abs#1{\bigl\lvert#1\bigr\rvert}
+\def\bigabs#1{\bigl\lvert#1\bigr\rvert}
+\def\Bigabs#1{\Big\lvert#1\Big\rvert}
+\def\ABS#1{\left\lvert#1\right\rvert}
+\def\norm#1{\bigl\Vert#1\bigr\Vert} %norm
+\def\close#1{\overline{#1}}
+\def\inter#1{#1^\circ}
+\def\eqdef{\mathrel{\mathop:}=}     % defining equivalence
+\def\where{\,|\,}                    % "where" separator in set's defs
+\def\timeD#1{\dot{\overline{{#1}}}}
+%
+% ******************************************* USEFULL MACROS
+\def\RomanEnum{\renewcommand{\labelenumi}{\rm (\roman{enumi})}}   % enumerate by roman numbers
+\def\rf#1{(\ref{#1})}                                             % ref. shortcut
+\def\prtl{\partial}                                        % partial deriv.
+\def\Names#1{{\scshape #1}}
+\def\rem#1{{\parskip=0cm\par!! {\sl\small #1} !!}}
+\def\reseni#1{\par{\bf Řešení:}#1}
+%
+%
+% ******************************************* DOCUMENT NOTATIONS
+% document specific
+%***************************************************************************
+%
+\addtolength{\textwidth}{2cm}
+\addtolength{\vsize}{2cm}
+\addtolength{\topmargin}{-1cm}
+\addtolength{\hoffset}{-1cm}
+\begin{document}
+\parskip=2ex
+\parindent=0pt
+\pagestyle{empty}
+ \section*{skupina A}
+
+ \begin{enumerate}
+  \item Výrobce předává zákazníkovi dodávku 200 výrobků z nichž 25 je vadných. Zákazník provádí kontrolu testem deseti náhodně vybraných výrobků. A přijme dodávku pokud je max. jeden výrobek vadný. Jaká je pravděpodobnost přijetí dodávky? 
+
+  Z 200 dodaných výrobků je $M$ vadných. Zákazník $M$ nezná a provádí kontrolu deseti výrobků. Určete pro jaké $M$
+  je největší pravděpodobnost, že při kontrole budou 2 výrobky vadné. Určete i uvedenou pravděpodobnost.
+
+  Pomocí Bayesovy věty nalezněte nejpravděpodobnější hodnotu $M$ za podmínky, že při kontrole budou 2 výrobky vadné.
+  Předpokládejte, že pravděpodobnost výroby jednoho vadného výrobku je 10\%.
+
+  \item Při dopravním průzkumu byla sledována vytíženost vjezdu do křižovatky.
+  Student, provádějící průzkum, si vždy při naskočení zeleného světla zapsal počet aut, čekajících 
+  ve frontě u semaforu. Jeho zapsané výsledky jsou:
+
+  6, 3, 1, 5, 3, 2, 3, 5, 7, 1, 2, 8, 8, 1, 6, 1, 8, 5, 5, 8, 5, 4, 7, 2, 5, 6, 3, 4, 2, 8, 4, 4, 5, 5, 4,
+3, 3, 4, 9, 6, 2, 1, 5, 2, 3, 5, 3, 5, 7, 2, 5, 8, 2, 4, 2, 4, 2, 4, 3, 5, 6, 4, 6, 9, 3, 2, 1, 2, 6, 3,
+5, 3, 5, 3, 7, 6, 3, 7, 5.
+
+  Vytvořte tabulku četností, nakreslete histogram a krabicový graf a spočtěte: průměr, výběrovou odchylku, šikmost a špičatost, medián, short a modus.
+  
+  Proveďte Wilcoxonův test a znaménkový test pro medián $\tilde{x}=4$.
+  
+  
+  \item Byla zkoumána atraktivita čtyř barev pro určitý druh hmyzu. Pro každou barvu bylo provedeno $7$ pokusů.
+        Pro žlutou byl průmerný počet chyceného hmyzu $47.167$ se standardní odchylkou $6.795$. Pro bílou byl průměr 
+        $15.667$, odchylka $3.327$. Pro zelenou $31.5$ a $9.915$, pro modrou $14.833$ a $5.345$. Proveďte analýzu rozptylu.
+\end{enumerate}
+
+\pagebreak
+\section*{skupina B}
+\begin{enumerate}
+  \item V pokeru se rozdává $5$ karet z $52$. Kolik je takových rozdání? Určete pravděpodobnosti rozdání následujících karetních kombinací: a) dvojice - dvě karty stejné hodnoty b) trojice - tři karty stejné hodnoty c) full house - trojice + dvojice d) čistá postupka - postupka jedné barvy, přičemž eso může sloužit též jako 1.
+
+  \item Ústav pro zjišťování životnosti výrobků dostal zakázku na testování životnosti žárovek, kterých testoval 50 kusů.
+  Testované žárovky byly sledovány až do své poruchy. Byly naměřeny následující doby do poruchy (v hodinách):
+
+ 1013   1194    1070    762     911     1061    823     871     934     999     966     946     1131    908     1092    996     1071    928     1055    1024    858     971     1111    1102    900     1036    920     977     1008    1091    1029    986     960     1253    1033    890     940     1003    1161    1121    1141    981     1081    840     1042    880     948     990
+
+  Zkoumejte normalitu rozdělení: Identifikujte odlehlá pozorování pomocí z-souřadnice. Spočtěte: průměr, výběrovou odchylku, šikmost a špičatost. Sestrojte Q-Q graf.
+  Otestujte, že střední doba do poruchy žárovek splňuje normální rozdělení pomocí testu dobré shody. Dále otestujte standadizovaná data na shodu s N(0,1) pomocí Kolmogorovova testu.
+
+  Za předpokloadu normality rozdělení dat určete pravděpodobnost, že žárovka vydrží v provozu alespoň 750 hodin.
+\end{enumerate}
+\pagebreak
+  \section*{skupina C} 
+\begin{enumerate}
+
+\item Součástky A, B, C jsou zapojeny sériově, tj. při poruše kterékoliv z nich dojde k poruše celého systému. Doba do poruchy
+      součástek má exponenciální rozdělení a poruchy na součástkéch jsou nezávislé. Střední doby do poruchy jsou pro součástku A 1000 h, pro B 2000 h a pro C 1200 h.
+      Vypočtěte střední dobu do poruchy celého systému. Pro každou součástku stanovte pravděpodobnost, že bude fungovat alespoň 500 h. Najděte distribuční funkci doby do poruchy celého systému a určete pravděpodobnost, že celý systém bude v provozuschopném stavu v čase t=200 h. 
+
+  \item Firma na těžbu zlata chce porovnat výtěžnost dvou ložisek. U prvního byly naměřeny následující hodnoty na jednotlivých vzorcích: 3,78 8,25 12,05 11,29 11,1 9,5 10,61 11,44
+
+U druhého ložiska byly naměřeny hodnoty:
+10,91 15,63 6,24 10,69 13,14 10,41 15,39 13,91 5,83 14,86
+9,35 16,01 15,52 11,8
+
+Proveďte exploratorní analýzu pro oba výběry: vytvořte graf empirických distribučních funkcí pro oba výběry, spočítejte:
+sřední hodnotu, rozptyl, šikmost, špičatost
+
+Otestujte shodu rozptylů. 
+Za předpokladu shody rozptylů otestujte na hladině významnosti $0,05$ zda jsou střední hodnoty výtěžnosti ložisek stejné.
+\item
+      Při měření závislosti hustoty vody $\rho$ na její teplotě $t$ byly naměřeny hodnoty (v kg/l):
+\begin{center}
+      \begin{tabular}{llllllllllll}
+       t & 0 & 10 & 20 & 30 & 40 & 50 & 60 & 70 & 80 & 90 & 100 \\
+       rho & 1,000 & 1,000 & 0,997 & 0,996 & 0,993 & 0,987 & 0.983 & 0.978 & 0.973 & 0.964 & 0.958
+      \end{tabular}
+
+\end{center}
+      Odhadněte koeficienty kvadratického modelu, spočtěte reziduální rozptyl a testujte hypotézu $H_0$, že závislost je pouze lineární. 
+  \end{enumerate}
+\end{document}

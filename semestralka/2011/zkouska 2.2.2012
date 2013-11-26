@@ -1,0 +1,45 @@
+ Horenovsky            1
+ Kumstyr                4 (nedostatky: Kolmogorov, anova; test str. hodnoty N)
+ Petrvalsky              1
+ Zacek                   4       (nedostatky: post-hoc anova; podminena pst., bodovy odhad)
+ Gjepali                 4       (nedostatky: kolmogorov, test dobre shody, post-hoc analyza; vzorec pro stredni hodnotu)
+ Petr Knebort                 2-      
+ Hynek                   3       ( podminena pst. , vzorec pro str. hodnotu)
+ Pavel Knebort                 2       (Kolmogorov)
+ Ganzerova               4       ( kolmogorov, anova(stupne volnosti); diskretni NV a str. hodnota)
+ Mejdr                   4       ( klomogorov; anova(stupne volnosti), test dobre shody; regerse minimalizovany funkcional)
+ Rosicky                 4       ( ; distribucni funkce, spojita nahodna velicina )
+ Kopriva                 2-
+ Kohout                  4       ( ; diskretni rozdeleni, konstrukce EDF, predpoklady dvouvyberoveho t-testu )
+ Pazout                  4       ( test dobre shody; Kolmogorov, co je EDF a distr fce obecne )
+ Vajsar                  4       ( interval odhady, test dobre shody; kolmogorov, distribucni funkce )
+ Krofta                  4       ( ; distribucni funkce, NV )
+ Kristof                 1       
+ Vich                    4       ( intervalove odhady, kolmogorov, EDF, distr. fce )
+ Kazda                   2       
+
+
+
+9.2. ----------------------
+ Budesz                  1
+ Ganzerova               2       
+ Vajsar                  4       stejne jako posledne
+ Krofta                  2
+ Vich                    4       stejne jako posledne - kdyby vedel aspon neco
+ Kumstyr                 1-      
+ Gjepali                 2-
+ Pazout                  3
+ Mejdr                   4       stejne, trochu vysvetlil test dobre shody, chybne Kolmogorov a nedkoncena ANOVA
+
+
+23.2. ---------------------------
+Zacek                    3
+Rosicky                  1-
+Mejdr			 3
+
+8.3. -------------------------
+Kohout 			 4
+Vich			1
+
+
+

@@ -1,0 +1,9 @@
+type1=read.table("data_1")
+type2=read.table("data_2")
+type3=read.table("data_3")
+type4=read.table("data_4")
+
+all=c(type1[,1],type2[,1],type3[,1],type4[,1])
+factor=c(rep("t1",length(type1[,1])),rep("t2",length(type2[,1])),rep("t3",length(type3[,1])),rep("t4",length(type4[,1])))
+bulbs=data.frame(all,factor)
+boxplot(all~factor,data=bulbs)

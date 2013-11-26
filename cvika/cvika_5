@@ -1,0 +1,13 @@
+Interval estimates and one sample tests
+---------------------------------------
+
+Volf priklady pro AMA
+Z04 - proportion test, different size
+Z06 - odhad stredni hodnoty, velikost souboru
+Z02 - parovy t-test
+Z05 - proportion test (asymptoticky i pomoci R)
+A11 - chi-test
+A12 
+
+A01 - test na Poisonovo rozdeleni
+A05 !! - test medianu

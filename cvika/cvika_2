@@ -1,0 +1,107 @@
+Basic probability -----------------------------
+
+2) What is probability to throw a sequence when throwing 6 dices?
+   0.0154
+
+
+1) From 10 products there are 3 with defect. If you take 5 randomly, What is the 
+   probability that they include 2 products with defect.
+   (2 from 3). (3 from 7) / (5 from 10)
+   
+   install.packages("combinat")
+   choose(n,k)
+
+   0.41666
+   
+   x=0:5
+   plot(dhyper(x,3,7,5))
+
+   
+> x=replicate(10000,sum(as.integer(runif(5)*100 >50)))
+> hist(x)
+> points(0:5, 10000* dhyper(0:5, 50, 50, 5))
+
+   
+   
+Events -----------------------------------------
+
+5)  EXAMPLE 8. What is the probability that a positive integer selected at random from
+the set of positive integers not exceeding 100 is divisible by either 2 or 5?
+
+P(A or B) = P(A) + P(B) - P(A.B) = 0.5 + 0.2 - 0.1 = 0.6 
+
+
+3) a1 -> b123 -> a2  ( jevy , operace s pravdepodobnostmi)
+
+a1=0.6
+a2=0.5
+b1=0.9
+b2=0.7
+b3=0.4
+
+P(A)=P(a1 or a2) = P(a1) + P(a2) - P(a1).P(a2)
+P(B)=P(b1 and b2 and b3) = P(b1)*P(b2)*P(b3)
+P(C)=P(A or B) = P(A) + P(B) - P(A and B)  = 
+
+Conditional probability -------------------------------------------
+
+4) Three machines has probabilities 0.8, 0.7, 0.4 to produce a right component. 
+What is probability that you obtain exactly one component will be right, and probabilities
+that this component was produced by 1., 2., or 3. machine. 
+
+P(A) = 0.252
+P(A1/A) = 0.571
+   2    = 0.333
+   3    = 0.095
+   
+Bayes -------------------------------------------
+
+What is probability that in 100 products, there are more then 10 faulty if the test of 5 result in 2 defects?
+
+X(k) = P( k from 100 | 2 from 5) = P( 2 from 5 | k from 100) * P( k from 100) / P(2 from 5) =
+dhyper( 2, k, 100-k, 5) * dbinom(k, 100, p) / dbinom(2, 5,p) =
+C(k,2)*C(100-k, 3)/ C(100,5) * C(100,k) p^k (1-p)^(100-k) / { C(5,2) p^2 (1-p)^3 }
+
+1-X(0) - ... -X(10) = 0.617 (for p=0.1)
+
+Numerical test:
+1) generate Binom(100,p)
+> k=rbinom(100000,100,0.1)
+
+2) take 5 randomly: 
+> test=function(k) rhyper(1, k, 100-k, 5)
+> tst=lapply(k,test)==2
+
+4) x=k[tst]
+> hist(x)
+> length(x[x >10])/length(x)
+[1] 0.6215359
+
+> k=rbinom(1000000,100,0.1)
+> tst=lapply(k,test)==2
+> x=k[tst]
+> length(x[x >10])/length(x)
+[1] 0.6172989
+
+
+
+
+
+
+
+
+   
+Negativne binomicke ---------------------------------------
+6) In a computer game a player has 4 lives. Let each task have equal probability 0.65 of
+success, in opposite case one life is lost. What is the probability that the player will fulfill
+successfully at least 7 tasks before all his lives are lost?
+
+a) prob. to fulfill $k$ until $1$ life:
+   
+   0.65^k * (1-0.65)
+   
+b) fulfill $k$ until $4$ lives:
+  
+  N(k) = 0.65^k * (1-0.65)^4 * C(k+4, 4)
+  
+c) 1-N(0) - N(1) ... -N(6)   

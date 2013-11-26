@@ -1,0 +1,309 @@
+
+% $Header: /cvsroot/latex-beamer/latex-beamer/solutions/generic-talks/generic-ornate-15min-45min.en.tex,v 1.5 2007/01/28 20:48:23 tantau Exp $
+
+\documentclass[smaller]{beamer}
+\mode<presentation>
+{
+  \usetheme{Singapore}
+  \usefonttheme[onlymath]{serif}
+  % or ...
+ %  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+
+\usepackage[czech]{babel}
+% or whatever
+\usepackage[utf8]{inputenc}
+% or whatever
+%\usepackage{times}
+%\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+
+\title{PAS05 - Limitní věty}
+
+\author{Jan B\v rezina}
+\institute % (optional, but mostly needed)
+{
+  %\inst{2}%
+  Technical University of Liberec
+}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+%\beamerdefaultoverlayspecification{<+->}
+
+% ***************************************** SYMBOLS
+\def\div{{\rm div}}
+\def\Lapl{\Delta}
+\def\grad{\nabla}
+\def\supp{{\rm supp}}
+\def\dist{{\rm dist}}
+%\def\chset{\mathbbm{1}}
+\def\chset{1}
+
+\def\Tr{{\rm Tr}}
+\def\sgn{{\rm sgn}}
+\def\to{\rightarrow}
+\def\weakto{\rightharpoonup}
+\def\imbed{\hookrightarrow}
+\def\cimbed{\subset\subset}
+\def\range{{\mathcal R}}
+\def\leprox{\lesssim}
+\def\argdot{{\hspace{0.18em}\cdot\hspace{0.18em}}}
+\def\Distr{{\mathcal D}}
+\def\calK{{\mathcal K}}
+\def\FromTo{|\rightarrow}
+\def\convol{\star}
+\def\impl{\Rightarrow}
+\DeclareMathOperator*{\esslim}{esslim}
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\DeclareMathOperator{\ess}{ess}
+\DeclareMathOperator{\osc}{osc}
+\DeclareMathOperator{\curl}{curl}
+
+%\def\Ess{{\rm ess}}
+%\def\Exp{{\rm exp}}
+%\def\Implies{\Longrightarrow}
+%\def\Equiv{\Longleftrightarrow}
+% ****************************************** GENERAL MATH NOTATION
+\def\Real{{\rm\bf R}}
+\def\Rd{{{\rm\bf R}^{\rm 3}}}
+\def\RN{{{\rm\bf R}^N}}
+\def\D{{\mathbb D}}
+\def\Nnum{{\mathbb N}}
+\def\Measures{{\mathcal M}}
+\def\d{\,{\rm d}}               % differential
+\def\sdodt{\genfrac{}{}{}{1}{\rm d}{{\rm d}t}}
+\def\dodt{\genfrac{}{}{}{}{\rm d}{{\rm d}t}}
+
+\def\vc#1{\mathbf{\boldsymbol{#1}}}     % vector
+\def\tn#1{{\mathbb{#1}}}    % tensor
+\def\abs#1{\lvert#1\rvert}
+\def\Abs#1{\bigl\lvert#1\bigr\rvert}
+\def\bigabs#1{\bigl\lvert#1\bigr\rvert}
+\def\Bigabs#1{\Big\lvert#1\Big\rvert}
+\def\ABS#1{\left\lvert#1\right\rvert}
+\def\norm#1{\bigl\Vert#1\bigr\Vert} %norm
+\def\close#1{\overline{#1}}
+\def\inter#1{#1^\circ}
+\def\ol#1{\overline{#1}}
+\def\ul#1{\underline{#1}}
+\def\eqdef{\mathrel{\mathop:}=}     % defining equivalence
+\def\where{\,|\,}                    % "where" separator in set's defs
+\def\timeD#1{\dot{\overline{{#1}}}}
+
+% ******************************************* USEFULL MACROS
+\def\RomanEnum{\renewcommand{\labelenumi}{\rm (\roman{enumi})}}   % enumerate by roman numbers
+\def\rf#1{(\ref{#1})}                                             % ref. shortcut
+\def\prtl{\partial}                                        % partial deriv.
+\def\Names#1{{\scshape #1}}
+\def\rem#1{{\parskip=0cm\par!! {\sl\small #1} !!}}
+
+\def\Xint#1{\mathchoice
+{\XXint\displaystyle\textstyle{#1}}%
+{\XXint\textstyle\scriptstyle{#1}}%
+{\XXint\scriptstyle\scriptscriptstyle{#1}}%
+{\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+\!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$}
+\vcenter{\hbox{$#2#3$}}\kern-.5\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+
+% ******************************************* DOCUMENT NOTATIONS
+% document specific
+\def\rh{\varrho}
+\def\vl{{\vc{u}}}
+\def\th{\vartheta}
+\def\vx{\vc{x}}
+\def\vX{\vc{X}}
+\def\vr{\vc{r}}
+\def\veta{\vc{\eta}}
+\def\dx{\,\d\vx}
+\def\dt{\,\d t}
+\def\bulk{\zeta}
+\def\cS{\close{S}}
+\def\eps{\varepsilon}
+\def\phi{\varphi}
+\def\Bog{{\mathcal B}}
+\def\Riesz{{\mathcal R}}
+\def\distr{\mathcal D}
+\def\Item{$\bullet$}
+
+\def\MEtst{\mathcal T}
+%***************************************************************************
+\setbeamercolor{my blue}{fg=blue}
+\def\blue#1{{\usebeamercolor[fg]{my blue} #1}}
+\setbeamercolor{my green}{fg=green}
+\def\green#1{{\usebeamercolor[fg]{my green} #1}}
+\setbeamercolor{my red}{fg=red}
+\def\red#1{{\usebeamercolor[fg]{my red} #1}}
+\def\xskip{{\vspace{2ex}}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% zvýraznění definovaného pojmu
+\def\df{\usebeamercolor[fg]{my red}\it}
+
+\begin{frame}{Motivační otázky?}
+\begin{itemize}
+ \item Proč má řada náhodných veličin normální rozdělení?
+  \pause
+ \item Jak pracovat s Binomickým rozdělením pro velká $n>100$, problém výpočtu binomických koeficientů \dots
+\pause
+ \item Jaká je souvislost výběrového průměru a střední hodnoty?
+\pause
+ \item Jak moc obecné je pravidlo $3\sigma$?
+\end{itemize}
+
+\end{frame}
+
+
+\section{Limitní věty}
+\begin{frame}{konvergence náhodných veličin}
+Uvažujme posloupnost náhodných veličin $X_n$. A náhodnou veličinu $X$. Říkáme, že
+\begin{itemize}
+ \item $X_n$ konverguje {\df skoro jistě} k $X$, pokud pravděpodobnost konvergence je $1$, tj.
+ \[
+    P\{ \omega\in \Omega | X_n(\omega) \to X(\omega) \} = 1
+ \]
+ zkráceně: $X_n\to X$ s.j.
+ \item $X_n$ konverguje {\df podle pravděpodobnosti}, pokud
+ \[
+   P\{\omega\in\Omega: \abs{X_n(\omega) -X(\omega)}> \eps\} \to  \quad \forall\, \eps> 0
+ \]
+ zkráceně: $X_n \stackrel{P}{\to} X$.
+ \item $X_n$ konverguje {\df podle středu}, pokud 
+ \[
+    E(X_n - X)^2 \to 0
+ \]
+ \item $X_n$ konverguje {\df v distribuci}, pokud 
+ \[
+   \lim_{n\to\infty} F_n(x) = F(x)\quad \forall\, x\in\Real
+ \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Vztahy mezi konvergencemi}
+ \begin{itemize}
+  \item ``skoro jistě``, ``podle psti.`` a ``podle středu'' implikuje ''v distribuci``
+  \item ''skoro jistě`` a ''podle středu`` implikuje '' podle psti.``
+ \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Markovova nerovnost}
+\begin{theorem}
+ Pokud $X$ je náhodná veličina, pak $P(\abs{X}\ge a) \le \frac{E\abs{X}}{a}$
+\end{theorem}
+Důkaz:\\
+$\abs{X}\ge aI_{\abs{X}\ge a} $, kde $I_M=1$ pokud nastal jev $M$ (indikátorová NV)\\
+aplikujeme střední hodnotu:
+\[
+  E(\abs{X}) \ge E(aI_{\abs{X}\ge a}) = a P(\abs{X}\ge a)
+\]
+\end{frame}
+
+\begin{frame}{Čebyševova nerovnost}
+\[
+   P\{\abs{X-EX}\ge a \sigma(X)\} \le \frac{1}{a^2}
+\]
+pro unimodální: je LHS $\le \frac{4}{9a^2}$ (Vysochanskiï–Petunin inequality), pravidlo $3$ sigma 
+
+\end{frame}
+
+
+
+\begin{frame}{slabý Zákon velkých čísel }
+Nechť $X_n$ je posloupnost nezávislých n.v. se stejnými stř. hodnotami $EX_n=\mu$ pak
+pro n.v.
+\[
+  \overline{X_n}:= \frac{1}{n} \sum_{i=1}^n X_i
+\]
+platí
+\[
+ \overline{X_n} \stackrel{P}{\to} \mu
+\]
+\end{frame}
+
+\begin{frame}{Důkaz:}
+Důkaz pokud předpokládáme omezené rozptyly: $DX_n \le C$.
+\[
+  E\overline{X_n} = \mu
+\]
+Pro rozptyl součtu platí:
+\[
+  var(X+Y) = var(X) + var(Y) + 2cov(X,Y)
+\]
+a pro nezávislé veličiny je $cov(X,Y) = 0$, tady: 
+
+\[
+D\overline{X_n} = 1/{n^2} \sum_i var(X_i)\le \frac{C}{n} )
+\]
+Markovova nerovnost: 
+\[
+  P(\abs{\overline{X_n} - \mu} \ge \eps ) = P(\abs{\overline{X_n} - \mu}^2 \ge \eps^2 ) \le \frac{C}{n\eps^2} \to 0
+\]
+\end{frame}
+
+
+
+\begin{frame}{silný Zákon velkých čísel}
+Nechť $X_n$ je posloupnost nezávislých n.v. se stejným rozdělením a konečnou střední hodnotou $EX_i = \mu$ pak
+platí
+\[
+ \overline{X_n} \to \mu \quad \text{skoro jistě.}
+\]
+\end{frame}
+
+\begin{frame}{Centrální limitní věta}
+Nechť $X_n$ je posloupnost nezávislých stejně rozdělených n.v. s konečnou $EX_i =\mu$ a $DX_i =\sigma^2$, pak 
+\[
+  \sqrt{n}(\ol{X}_n -\mu)\to N(0, \sigma^2)\quad\text{v distribuci}
+\]
+nebo-li
+\[
+  Z_n=\sqrt{n}\frac{\ol{X}_n-\mu}{\sigma} \to N(0,1)\quad\text{v distribuci}
+\]
+
+Platí i pro různá rozdělení, ale je třeba předpokládat jisté vlastnosti vyšších momentů.
+
+Zjednodušeně: 
+\[
+ \sum_{i=1}^{n} X_i  ''\sim `` N(n\mu, n\sigma^2)
+\]
+\[
+ \ol{X}_n ''\sim`` N(\mu, \frac{\sigma^2}{n})
+\]
+
+
+\end{frame}
+
+\begin{frame}{Moivrova-Laplaceova věta}
+\[
+ Bi(n,p) ''\sim`` N(np, np(1-p) )
+\]
+pokud je $n$ dost veliké resp.
+\[
+ np(1-p) \ge 9
+\]
+nebo
+\[
+ np > 5\quad \text{a} \quad n(1-p) > 5
+\]
+
+
+\end{frame}
+
+\end{document}
+
+

@@ -1,0 +1,177 @@
+1. a)  
+sum(dhyper(0:1, n=175, m=25, k=10) ) 
+[1] 0.6376962
+
+b) p_two=function(M) dhyper(2,n=200-M,M,k=10)
+> p_two=function(M) dhyper(2,n=200-M,M,k=10)
+> all_p=lapply(0:200,p_two)
+> which.max(all_p)
+[1] 41
+> all_p[which.max(all_p)]
+[[1]]
+[1] 0.3097994
+
+M=40
+
+... je pst ze najdeme prave 2 z 10 vytazenych
+
+> sum(sapply(0:200, p_two))
+[1] 18.27273
+
+P(l=2) = sum( P(l=2 | m=M) * P(m=M))
+P(m=M | l=2)= P(l=2 & m=M)/P(l=2) = P(l=2 | m=M) *P(m=M)/P(l=2) 
+
+= dhyper(2, n=200-M, m=M, k=10) * dbinom(M, 200 , p_vady) / sum( dhyper(2, 200-M, M,k=10) * dbinom(M, 200, p_vady) ) 
+
+
+> p_two_and_M=function(M) { return(dhyper(2, n=200-M, m=M, k=10) * dbinom(M,200 , 0.1) ) }
+> p_two_all=sum(sapply(0:200, p_two_and_M))
+> p_two_all
+[1] 0.1937102
+> p_M_if_two=function(M) { return( p_two_and_M(M)/p_two_all ) }
+> which.max(sapply(0:200, p_M_if_two))
+[1] 22
+> M=21
+----------------------------------------------------------
+2)
+> summary(auta)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  1.000   3.000   4.000   4.316   6.000   9.000 
+mean=4.316
+> sd(auta)   2.109468
+median = 4
+iqr= 3
+
+> table(auta)
+auta
+ 1  2  3  4  5  6  7  8  9 
+ 6 12 14 10 16  8  5  6  2 
+
+ 
+> hist(auta, breaks=0:9)
+
+> qqplot(qpois(ppoints(length(auta)), lambda=mean(auta)), auta)
+
+> wilcox.test(auta, mu=4)
+
+        Wilcoxon signed rank test with continuity correction
+
+data:  auta 
+V = 1376, p-value = 0.3085
+alternative hypothesis: true location is not equal to 4 
+... can not reject hypothesis that median==4
+(wrong assumption about symmetry of distribution)
+
+> n_minus=length(auta[auta<4])
+> n_minus                        [1] 32
+> n_plus=length(auta[auta>4])
+> n_plus                         [1] 37
+> pbinom(n_plus, n_plus+n_minus, 0.5)
+[1] 0.7648157
+> 2*(1-pbinom(n_plus, n_plus+n_minus, 0.5))
+pvalue: [1] 0.4703685
+... can not reject hyp. median==4
+
+=======================
+normalne ma wilcox vyssi silu:
+  
+> xx=rnorm(100)
+> wilcox.test(xx)
+V = 2432, p-value = 0.7505
+> n_plus=length(xx[xx>0])
+> 2*(1-pbinom(n_plus, 100, 0.5))
+[1] 1.382701
+> 2*(pbinom(n_plus, 100, 0.5))
+pvalue of sign test: [1] 0.6172994
+
+-----------------------------------------------------------------
+3)
+> n1=1600; a1=3.308; s1=0.649; n2=900; a2=3.314; s2=0.624
+> sx=sqrt( ((n1-1)*s1^2 + (n2-1)*s2^2)/ (n1+n2-2) )
+> T=(a2-a1)/sx/sqrt(1/n1+1/n2)
+> T
+[1] 0.2249595
+> sx
+[1] 0.6401153
+> pt(T, df=n1+n2-2)
+pvalue: [1] 0.5889854
+one side test
+--------------------------------------------------------------
+4) 
+> freq=c(45, 26, 25, 27, 27, 29, 21, 26, 40, 34)
+> chisq.test(freq, p=rep(1/10,10))
+
+        Chi-squared test for given probabilities
+
+data:  freq 
+X-squared = 16.6, df = 9, p-value = 0.05536
+
+====
+
+> mean(rep(1:10, freq))
+[1] 5.48
+> var(rep(1:10, freq))
+[1] 9.528027
+
+
+> chi=sum( (freq - 30)^2/30)
+> chi
+[1] 16.6
+> 1-pchisq(chi, df=9)
+[1] 0.05536105
+
+---------------------------------------------------------------
+> stroj=c( 21, 16, 17, 18)
+> mech=c(6, 10, 13, 13, 4, 8)
+> tex=c(8, 6, 4, 5, 2)
+> val=c(stroj, mech, tex)
+> l=c(length(stroj),length(mech),length(tex))
+> d=data.frame( val, fac=factor( rep(1:3,l) ) )
+> model=aov(val~fac,d)
+> summary(model)
+            Df Sum Sq Mean Sq F value   Pr(>F)    
+fac          2  386.9   193.5   22.76 8.24e-05 ***
+Residuals   12  102.0     8.5                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+> boxplot(val~fac,d)
+> TukeyHSD(model)
+  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = val ~ fac, data = d)
+
+$fac
+    diff        lwr        upr     p adj
+2-1   -9 -14.020737 -3.9792630 0.0011999
+3-1  -13 -18.217703 -7.7822971 0.0000652
+3-2   -4  -8.709869  0.7098688 0.0999610
+
+
+> pairwise.t.test(d$val, d$fac, p.adjust.method="b")
+
+        Pairwise comparisons using t tests with pooled SD 
+
+data:  d$val and d$fac 
+
+  1       2     
+2 0.0013  -     
+3 7.1e-05 0.1283
+
+P value adjustment method: bonferroni 
+
+> pairwise.t.test(d$val, d$fac, p.adjust.method="holm")
+
+        Pairwise comparisons using t tests with pooled SD 
+
+data:  d$val and d$fac 
+
+  1       2      
+2 0.00089 -      
+3 7.1e-05 0.04276
+
+P value adjustment method: holm 
+
+
+
+
