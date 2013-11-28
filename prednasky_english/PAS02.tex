@@ -1,0 +1,505 @@
+
+% $Header: /cvsroot/latex-beamer/latex-beamer/solutions/generic-talks/generic-ornate-15min-45min.en.tex,v 1.5 2007/01/28 20:48:23 tantau Exp $
+
+\documentclass[smaller]{beamer}
+\mode<presentation>
+{
+  \usetheme{Singapore}
+  \usefonttheme[onlymath]{serif}
+  % or ...
+ %  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+
+\usepackage[czech]{babel}
+% or whatever
+\usepackage[utf8]{inputenc}
+% or whatever
+%\usepackage{times}
+%\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+
+\title{PAS02 - basics of probability theory}
+
+\author{Jan B\v rezina}
+\institute % (optional, but mostly needed)
+{
+  %\inst{2}%
+  Technical University of Liberec
+}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+%\beamerdefaultoverlayspecification{<+->}
+
+% ***************************************** SYMBOLS
+\def\div{{\rm div}}
+\def\Lapl{\Delta}
+\def\grad{\nabla}
+\def\supp{{\rm supp}}
+\def\dist{{\rm dist}}
+%\def\chset{\mathbbm{1}}
+\def\chset{1}
+
+\def\Tr{{\rm Tr}}
+\def\sgn{{\rm sgn}}
+\def\to{\rightarrow}
+\def\weakto{\rightharpoonup}
+\def\imbed{\hookrightarrow}
+\def\cimbed{\subset\subset}
+\def\range{{\mathcal R}}
+\def\leprox{\lesssim}
+\def\argdot{{\hspace{0.18em}\cdot\hspace{0.18em}}}
+\def\Distr{{\mathcal D}}
+\def\calK{{\mathcal K}}
+\def\FromTo{|\rightarrow}
+\def\convol{\star}
+\def\impl{\Rightarrow}
+\DeclareMathOperator*{\esslim}{esslim}
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\DeclareMathOperator{\ess}{ess}
+\DeclareMathOperator{\osc}{osc}
+\DeclareMathOperator{\curl}{curl}
+
+%\def\Ess{{\rm ess}}
+%\def\Exp{{\rm exp}}
+%\def\Implies{\Longrightarrow}
+%\def\Equiv{\Longleftrightarrow}
+% ****************************************** GENERAL MATH NOTATION
+\def\Real{{\rm\bf R}}
+\def\Rd{{{\rm\bf R}^{\rm 3}}}
+\def\RN{{{\rm\bf R}^N}}
+\def\D{{\mathbb D}}
+\def\Nnum{{\mathbb N}}
+\def\Measures{{\mathcal M}}
+\def\d{\,{\rm d}}               % differential
+\def\sdodt{\genfrac{}{}{}{1}{\rm d}{{\rm d}t}}
+\def\dodt{\genfrac{}{}{}{}{\rm d}{{\rm d}t}}
+
+\def\vc#1{\mathbf{\boldsymbol{#1}}}     % vector
+\def\tn#1{{\mathbb{#1}}}    % tensor
+\def\abs#1{\lvert#1\rvert}
+\def\Abs#1{\bigl\lvert#1\bigr\rvert}
+\def\bigabs#1{\bigl\lvert#1\bigr\rvert}
+\def\Bigabs#1{\Big\lvert#1\Big\rvert}
+\def\ABS#1{\left\lvert#1\right\rvert}
+\def\norm#1{\bigl\Vert#1\bigr\Vert} %norm
+\def\close#1{\overline{#1}}
+\def\inter#1{#1^\circ}
+\def\ol#1{\overline{#1}}
+\def\ul#1{\underline{#1}}
+\def\eqdef{\mathrel{\mathop:}=}     % defining equivalence
+\def\where{\,|\,}                    % "where" separator in set's defs
+\def\timeD#1{\dot{\overline{{#1}}}}
+
+% ******************************************* USEFULL MACROS
+\def\RomanEnum{\renewcommand{\labelenumi}{\rm (\roman{enumi})}}   % enumerate by roman numbers
+\def\rf#1{(\ref{#1})}                                             % ref. shortcut
+\def\prtl{\partial}                                        % partial deriv.
+\def\Names#1{{\scshape #1}}
+\def\rem#1{{\parskip=0cm\par!! {\sl\small #1} !!}}
+
+\def\Xint#1{\mathchoice
+{\XXint\displaystyle\textstyle{#1}}%
+{\XXint\textstyle\scriptstyle{#1}}%
+{\XXint\scriptstyle\scriptscriptstyle{#1}}%
+{\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+\!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$}
+\vcenter{\hbox{$#2#3$}}\kern-.5\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+
+% ******************************************* DOCUMENT NOTATIONS
+% document specific
+\def\rh{\varrho}
+\def\vl{{\vc{u}}}
+\def\th{\vartheta}
+\def\vx{\vc{x}}
+\def\vX{\vc{X}}
+\def\vr{\vc{r}}
+\def\veta{\vc{\eta}}
+\def\dx{\,\d\vx}
+\def\dt{\,\d t}
+\def\bulk{\zeta}
+\def\cS{\close{S}}
+\def\eps{\varepsilon}
+\def\phi{\varphi}
+\def\Bog{{\mathcal B}}
+\def\Riesz{{\mathcal R}}
+\def\distr{\mathcal D}
+\def\Item{$\bullet$}
+
+\def\MEtst{\mathcal T}
+%***************************************************************************
+% highlight color
+\setbeamercolor{my blue}{fg=blue}
+\def\blue#1{{\usebeamercolor[fg]{my blue} #1}}
+
+\setbeamercolor{my green}{fg=green}
+\def\green#1{{\usebeamercolor[fg]{my green} #1}}
+
+% color for term definition
+\setbeamercolor{my orange}{fg=orange}
+\def\df#1{{\usebeamercolor[fg]{my orange} #1}}
+\def\xskip{{\vspace{2ex}}}
+
+\def\cz#1{{\small (#1)}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+\begin{frame}{What is the probability?}
+\pause
+"What is the probability of passing the exam?" How you define it? \pause 
+(empirical - relative frequency)\\
+
+\xskip
+What is the probabilty to guess 6 numbers from 40? \pause \\
+(model - classical prob.; $ \binom{40}{6} = \frac{40!}{34!6!}~\dots$)\\
+
+\xskip
+Probability to hit center in darts. What is center?\pause \\
+\dots density of probability, probability as a \df{set function}
+
+\end{frame}
+
+\begin{frame}{Sample space}
+\df{Random experiment}\cz{náhodný pokus} produce:\\
+\df{outcome}\cz{výsledek} -- not determined, repeatable
+
+\xskip
+\df{Sample space}\cz{prostor elementárních jevů} $\Omega$ -- set of all possible outcomes,
+range\cz{obor hodnot} of random experiment\\
+
+
+\xskip
+\blue{Examples:}\\
+
+\blue{Discrete outcomes/variables}
+
+taking socks from a bin: $\Omega=\{white, gray, black\}$, \\
+throwing die: $\Omega = \{1,2,3,4,5,6\}$,\\
+
+\blue{Continuous outcomes/variables}
+
+measurement of temperature: $\Omega = (0,\infty)$,\\
+measurement of a velocity vector: $\Omega= \Real^3$,\\
+
+\blue{"Theoretical" outcome}
+
+motor vibrations during one second: $\Omega=C([0,1])$\\
+\dots set of continuous functions on interval $[0,1]$, 
+\end{frame}
+
+\begin{frame}{Random event}
+\df{random event}\cz{náhodný jev} -- property or statement about outcome\\
+formally: subset $\omega$ of $\Omega$\\
+
+\blue{Examples}\\
+\begin{itemize}
+\item will not draw gray sock; will draw white or black,\\
+      $\omega = \{white, black\}$\\
+\item will roll odd number with dice,\\
+      $\omega = \{1,3,5\}$\\
+\item temperature $[K]$ allowing liquid water at see pressure,\\
+      $\omega=(273,373)$, \\
+\item wind will blow in north-east direction,\\
+      $\omega=\{a,a\},\quad a>0$
+\end{itemize}
+\xskip
+\df{elementary events}\cz{elementární jevy} -- possible outcomes, elements of $\Omega$
+\end{frame}
+
+
+\begin{frame}{Relations and operations with events=sets}
+\blue{relations between events:}
+\begin{align*}
+ A\subset B&\quad\text{event $A$ implies event B}\\
+ A = B  &\quad\text{$A$ comes when ever $B$ comes}\\
+ A\cap B =\emptyset&\quad\text{disjoint events}
+\end{align*} 
+
+\blue{operations with events:}
+\begin{align*}
+ A\cup B  &\quad\text{event $A$ or event $B$ }\\
+ A\cap B  &\quad\text{event $A$ and event $B$}\\
+ \overline{A}, A^c &\quad\text{$A$ will not come},\text{ \df{complementary event} (doplňkový jev)}\\
+ A\setminus B &\quad\text{$A$ will come, but not $B$}
+\end{align*}
+also countable unions and intersections:
+\[
+  \bigcup_{i\in N} A_i,\quad \bigcap_{i\in N} A_i
+\]
+\end{frame}
+
+\begin{frame}{Definition of probability - motivation}
+\begin{itemize}
+ \item probability $p$ assign a number from $[0,1]$ to given event,\\
+       it is \df{measure}\cz{míra} of a subset $\omega \subset \Omega$
+ \item for infinite $\Omega$ we can not measure all subsets of $\Omega$ !!
+ \item always can measure: $\Omega$, $\emptyset$
+ \item can measure unions 
+ \item given set of \df{measurable}\cz{měřitelných} events\\
+       forms \df{system of random events}
+\end{itemize}
+ 
+\end{frame}
+
+
+\begin{frame}{System of random events}
+
+\begin{definition}
+\df{System of random events} ($\sigma$-algebra) $\mathcal{S}(\Omega)$ is a system of subsets of $\Omega$ satisfying
+\begin{enumerate}
+\item  $\Omega \in \mathcal{S}$
+
+\item
+countable union of events from $\mathcal S$ belongs also to $\mathcal S$, i.e.
+\[
+\text{if } A_i\in \mathcal{S} \text{ then } \bigcup_{i=1}^{\infty} A_i \in \mathcal{S}
+\]
+%
+\item complementary event is also from $\mathcal S$
+\[
+\text{if } A \in \mathcal{S} \text{ then } A^c \in \mathcal{S}
+\]
+\end{enumerate}
+\end{definition}
+
+Other properties can be proved, e.g.
+\begin{itemize}
+ \item \df{impossible event} belongs to $\mathcal S$; $\emptyset \in A$ since $\Omega^c \in \mathcal{S}$
+ \item intersection of events belongs to $\mathcal S$; $A, B \in \mathcal{S} \impl A\cap B \in \mathcal{S}$ since $A\cap B = (A^c \cup B^c)^c$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Probability as a measure}
+We introduce \df{probability} as a measure, i.e. set function
+\[
+   P:  A\in \mathcal{S} \longrightarrow [0,1]
+\]
+where function $P$ must satisfy:
+\begin{align}
+ \tag{P1}&
+ A\in \mathcal{S} \impl  P(A)\ge 0\\
+ \tag{P2}&
+ A_i\in \mathcal{S} \text{ is system of pairwise disjoint sets, then}\\
+    \notag        
+     &\qquad P\Big(\bigcup_{i= 1}^{\infty} A_i\Big) = \sum_{i=1}^{\infty} P(A_i)\\
+ \tag{P3}&
+ P(\Omega) = 1
+\end{align}
+\end{frame}
+
+\begin{frame}{Probability space}
+We can prove further properties of $P$:
+\begin{itemize}
+ \item $P(\emptyset) = 0$\\
+  \blue{\it proof:} $P(\Omega) = P(\emptyset \cup \Omega) = P(\emptyset) + P(\Omega)$
+  
+ \xskip 
+ \item if $A \subset B$ then $P(A)\le P(B)$\\
+  \blue{\it proof:} $P(B) = P(A \cup B\setminus A)  = P(A) + P(B\setminus A) \ge P(A)$
+ 
+ \xskip
+ \item $P(A^c) = 1-P(A)$\\
+  \blue{\it proof:} $P(A^c) +P(A) = P(A^c \cup A) = P(\Omega) = 1$
+\end{itemize}
+
+\xskip
+if $P(A)=1$, we say that $A$ is \df{almost sure event}\cz{skoro jistý jev}
+
+The triple $(\Omega, \mathcal{S}, P)$ forms the \df{probability space}\cz{pravděpodobnostní prostor}.
+\end{frame}
+
+
+\begin{frame}{Inclusion exclusion principle}
+\blue{simple:}
+\[
+    P(A\cup B) = P(A) + P(B) - P(A\cap B)
+\]
+\blue{general:}
+\[
+    P(\cup A_i) = \sum P(A_{i})  - \sum P(A_{i}\cap A_{j}) + \sum P(A_{i}\cap A_{j} \cap A_{k}) -\ \dots
+\]
+
+\xskip
+ \blue{1)} probability that number from $S=\{1,\dots,100\}$ is divisible by $6$ or $7$?\\
+  $16$ divisible by $6$; $14$ divisible by $7$; $2$ divisible by both ($6\times 7 = 42$)
+  \[
+     P(A_6 \cup A_7) = P(A_6) + P(A_7) - P(A_6 \cap A_7) = \frac{16}{100} + \frac{14}{100} - \frac{2}{100} = \frac{28}{100} = 0.28
+  \]
+\blue{2)} What is probability that number from $S$ is divisible by $3$ or  $4$ or $5$?
+\begin{align*}
+  P(A_3 \cup A_4 \cup A_5) =& P(A_3) + P(A_4) + P(A_5)\\
+              &- P(A_{34}) - P(A_{45}) - P(A_{35})\\
+               &+ P(A_{345})=\frac{6}{10} 
+\end{align*}
+\end{frame}
+
+
+\begin{frame}{Finite probability space}
+
+\begin{itemize}
+\item model for qualitative and discrete empirical variables\\
+\item \blue{examples of $\Omega$:} types of defects of a product, political parties, dice
+\item $\Omega={1, \dots ,n}$
+\item system $\mathcal{S} = 2^\Omega$, contains all subsets
+\item probability of elementary events:\\
+      $P(i) = p_i$, for $i\in \Omega$,\\
+      where $p_i$ are non-negative numbers and their sum is $1$, \\
+\item for general event $M$:\\      
+      $M = \{1,4,5\}$ is  $P(M) = p_1 + p_4 + p_5$    
+
+\item Note: $\binom{n}{j}$ is number of events with $j$ elementary events\\
+\end{itemize}
+\end{frame}       
+
+\begin{frame}{Countable \cz{spočetný} probability spaces}
+\begin{itemize}
+\item \blue{examples:} Probability that number of nuclear decays (in big sample) during one second will be $k$.
+\item $\Omega = 1,2, \dots$\\
+\item again $\mathcal{S} = 2^\Omega$,\\
+\item again probabilities $p_i$ of elementary events, but now forming a sequence that should sum to $1$:\\
+       \[
+       \sum_{i=1}^\infty p_i = 1
+       \]
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Uncountable \cz{nespočetný} probability spaces}
+\begin{itemize}
+\item \blue{Example:} all imaginable people, all possible heights or weights of people
+\item $\Omega = \Real$, $\Real^N$, $C(K)$
+\item $\mathcal{S}$ can be  \df{Borel system} of sets on real axis $\mathcal B(\Real)$, that is minimal system 
+       containing all intervals
+\item general probability measure;\\
+on $\Real$ we can use  \df{distribution function}\cz{distribuční funkce} $F$\\
+For interval $[a,b)$ we define
+\[
+  P([a,b)) = F(a)- F(b)
+\]
+probability of unions, intersections, and complements (every Borel set $A$ can be written through them)
+is defined by (P2)
+
+That probability can be written as integral:
+\[
+  P(A) = \int_{A} F'(t) \dt
+\]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Probability space - abstraction}
+\begin{itemize}
+\item Consider survey asking people for: sex $S$, weight $W$, height $H$
+\item has to consider probability space $\Omega = \Omega_{S} \times \Omega_{W} \times \Omega_{H}$
+\item choice of the space depends on the variables we are observing
+\item unpractical \dots "abstract events", variables as mappings from abstract space to the space of the variable
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Conditional probability}
+\[
+P(A|B) = \frac{P(A\cap B)}{P(B)}
+\]
+\begin{itemize}
+\item theorem about \blue{multiplication of probabilities}
+\[
+P(A\cap B) = P(A|B) P(B)
+\]
+\[
+P(A_{1\dots n}) = P(A_1) P(A_2|A_1) P(A_3|A_{12}) \dots P(A_n|A_{1\dots n-1})
+\]
+
+\item restricted space $( \Omega, \mathcal S, P(\cdot| B))$ 
+\item theorem about \blue{total probability}
+\[
+  P(A) = \sum_i P(D_i) P(A|D_i)
+\]
+for any disjoint sets $D_i$ that cover $\Omega$, $\Omega = \cup_i D_i$
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Bayes' theorem}
+Simplest form:
+\[
+ P(B| A) = \frac{P(B) P(A|B)}{P(A)}
+\]
+
+\xskip
+General form for disjoint sets $D_i$ covering $\Omega$:
+\[
+ P(D_i| A) = \frac{P(D_i) P(A|D_i)}{P(A)} = \frac{P(D_i) P(A|D_i)}{\sum_k P(A|D_k)P(D_k)}
+\]
+
+\end{frame}
+
+
+\begin{frame}{Example}
+Let us consider an disease with prevalence $1\%$.\\
+Screening gives the correct result in $95\%$ for a person with disease,\\
+and in $70\%$ for a person without the disease.
+Determine the probability of correct diagnosis for the case of positive and for the negative 
+result of screening.
+
+\pause
+\xskip
+event $A=$ the person has disease,\\
+event $B=$ result is positive (should indicate $A$)\\
+from setting: $P(A) = 0.01$, $P(B| A) = 0.95$, $P(B^c|A^c)=0.7$
+
+\xskip
+Probability of correct result for positive screening:
+   \[
+     P(A| B) = \frac{P(B| A) P(A)}{P(B| A)P(A) + P(B| A^c)P(A^c)}=
+ \frac{P(B| A) P(A)}{P(B)} = \frac{0.0095}{0.3065}=0.031
+   \]
+
+Probability of correct result for negative screening:
+   \[
+     P(A^c| B^c) =
+ \frac{P(B^c| A^c) P(A^c)}{P(B^c)} = \frac{0.693}{0.6935}=0.9993
+   \]
+\end{frame}
+
+\begin{frame}{Independent events}
+\begin{definition}
+Events $A$ and $B$ are \df{independent} if $P(A\cap B) = P(A)P(B)$.
+\end{definition}
+
+\xskip
+motivated by:\\
+$P(A) = P(A|B)=P(A | B^c)$ or $P(B) = P(B|A)=P(B | A^c)$
+
+\xskip
+Events $A_1$, $A_2$, \dots, $A_n$ are \df{mutually independent} if for every subset of 
+indexes $M \subset \{1,\dots,n\}$, holds
+\[
+P\big(\bigcap_{i\in M} A_i\big) = \prod_{i\in M} P(A_i)
+\]
+
+\end{frame}
+
+
+
+
+
+  
+\end{document}
+
+

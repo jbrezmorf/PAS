@@ -1,0 +1,514 @@
+
+% $Header: /cvsroot/latex-beamer/latex-beamer/solutions/generic-talks/generic-ornate-15min-45min.en.tex,v 1.5 2007/01/28 20:48:23 tantau Exp $
+
+\documentclass[smaller]{beamer}
+\mode<presentation>
+{
+  \usetheme{Singapore}
+  \usefonttheme[onlymath]{serif}
+  % or ...
+ %  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+
+\usepackage[czech]{babel}
+% or whatever
+\usepackage[utf8]{inputenc}
+% or whatever
+%\usepackage{times}
+%\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+
+\title{PAS 05 - Random vectors and Limit theorems}
+
+\author{Jan B\v rezina}
+\institute % (optional, but mostly needed)
+{
+  %\inst{2}%
+  Technical University of Liberec
+}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+%\beamerdefaultoverlayspecification{<+->}
+
+% ***************************************** SYMBOLS
+\def\div{{\rm div}}
+\def\Lapl{\Delta}
+\def\grad{\nabla}
+\def\supp{{\rm supp}}
+\def\dist{{\rm dist}}
+%\def\chset{\mathbbm{1}}
+\def\chset{1}
+
+\def\Tr{{\rm Tr}}
+\def\sgn{{\rm sgn}}
+\def\to{\rightarrow}
+\def\weakto{\rightharpoonup}
+\def\imbed{\hookrightarrow}
+\def\cimbed{\subset\subset}
+\def\range{{\mathcal R}}
+\def\leprox{\lesssim}
+\def\argdot{{\hspace{0.18em}\cdot\hspace{0.18em}}}
+\def\Distr{{\mathcal D}}
+\def\calK{{\mathcal K}}
+\def\FromTo{|\rightarrow}
+\def\convol{\star}
+\def\impl{\Rightarrow}
+\DeclareMathOperator*{\esslim}{esslim}
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\DeclareMathOperator{\ess}{ess}
+\DeclareMathOperator{\osc}{osc}
+\DeclareMathOperator{\curl}{curl}
+
+%\def\Ess{{\rm ess}}
+%\def\Exp{{\rm exp}}
+%\def\Implies{\Longrightarrow}
+%\def\Equiv{\Longleftrightarrow}
+% ****************************************** GENERAL MATH NOTATION
+\def\Real{{\rm\bf R}}
+\def\Rd{{{\rm\bf R}^{\rm 3}}}
+\def\RN{{{\rm\bf R}^N}}
+\def\D{{\mathbb D}}
+\def\Nnum{{\mathbb N}}
+\def\Measures{{\mathcal M}}
+\def\d{\,{\rm d}}               % differential
+\def\sdodt{\genfrac{}{}{}{1}{\rm d}{{\rm d}t}}
+\def\dodt{\genfrac{}{}{}{}{\rm d}{{\rm d}t}}
+
+\def\vc#1{\mathbf{\boldsymbol{#1}}}     % vector
+\def\tn#1{{\mathbb{#1}}}    % tensor
+\def\abs#1{\lvert#1\rvert}
+\def\Abs#1{\bigl\lvert#1\bigr\rvert}
+\def\bigabs#1{\bigl\lvert#1\bigr\rvert}
+\def\Bigabs#1{\Big\lvert#1\Big\rvert}
+\def\ABS#1{\left\lvert#1\right\rvert}
+\def\norm#1{\bigl\Vert#1\bigr\Vert} %norm
+\def\close#1{\overline{#1}}
+\def\inter#1{#1^\circ}
+\def\ol#1{\overline{#1}}
+\def\ul#1{\underline{#1}}
+\def\eqdef{\mathrel{\mathop:}=}     % defining equivalence
+\def\where{\,|\,}                    % "where" separator in set's defs
+\def\timeD#1{\dot{\overline{{#1}}}}
+
+% ******************************************* USEFULL MACROS
+\def\RomanEnum{\renewcommand{\labelenumi}{\rm (\roman{enumi})}}   % enumerate by roman numbers
+\def\rf#1{(\ref{#1})}                                             % ref. shortcut
+\def\prtl{\partial}                                        % partial deriv.
+\def\Names#1{{\scshape #1}}
+\def\rem#1{{\parskip=0cm\par!! {\sl\small #1} !!}}
+
+\def\Xint#1{\mathchoice
+{\XXint\displaystyle\textstyle{#1}}%
+{\XXint\textstyle\scriptstyle{#1}}%
+{\XXint\scriptstyle\scriptscriptstyle{#1}}%
+{\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+\!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$}
+\vcenter{\hbox{$#2#3$}}\kern-.5\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+
+% ******************************************* DOCUMENT NOTATIONS
+% document specific
+\def\rh{\varrho}
+\def\vl{{\vc{u}}}
+\def\th{\vartheta}
+\def\vx{\vc{x}}
+\def\vX{\vc{X}}
+\def\vr{\vc{r}}
+\def\veta{\vc{\eta}}
+\def\dx{\,\d\vx}
+\def\dt{\,\d t}
+\def\bulk{\zeta}
+\def\cS{\close{S}}
+\def\eps{\varepsilon}
+\def\phi{\varphi}
+\def\Bog{{\mathcal B}}
+\def\Riesz{{\mathcal R}}
+\def\distr{\mathcal D}
+\def\Item{$\bullet$}
+
+\def\MEtst{\mathcal T}
+%***************************************************************************
+% highlight color
+\setbeamercolor{my blue}{fg=blue}
+\def\blue#1{{\usebeamercolor[fg]{my blue} #1}}
+
+\setbeamercolor{my green}{fg=green}
+\def\green#1{{\usebeamercolor[fg]{my green} #1}}
+
+% color for term definition
+\setbeamercolor{my orange}{fg=orange}
+\def\df#1{{\usebeamercolor[fg]{my orange} #1}}
+\def\xskip{{\vspace{2ex}}}
+
+\def\cz#1{{\small (#1)}}
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+\section{Random vectors}
+
+\begin{frame}{Random vectors}
+    \df{Random vector} is mapping from probability space to $\Real^n$.
+    
+    \xskip
+    Given by \df{joint distribution function} \cz{sdružená distr. funkce}:\\
+    \blue{two variables}
+    \[
+        F_{X,Y}(x,y)=P( X\le x \text{ and } Y\le y)
+    \]
+    \blue{general $n$-dim random vector}
+    \[
+       F_{\vc X} (\vc x) = F_{\vc X}(x_1, \dots, x_n) = P( X_1 < x_1 \wedge \dots \wedge X_n< x_n)
+    \]
+\end{frame}
+
+
+
+\begin{frame}{Joint density - discrete vectors}
+    countable many possible values $\vc x_1, \dots, \vc x_m$; given probabilities
+    \[
+         p_i = P(\vc X = \vc x_i),\quad i=1,\dots, m
+    \]
+    
+    \xskip
+    \blue{two variables} $\vc X = (X,Y)$\\
+    $X$ nabývá hodnot $x_1, \dots, x_{m_x}$,\\
+    $Y$ nabývá hodnot $y_1, \dots, y_{m_y}$
+    
+    \xskip
+    Table of probabilities:
+    \[ p_{ij} = P(X=x_i\text{ and }Y=y_j) \]
+\end{frame}
+
+\begin{frame}{Joint density - continuous vectors}
+    \blue{two variables}: density $f(x,y)$
+    \[
+       F(x,y) = \int_{-\infty}^{x} \int_{-\infty}^{y} f(s,t) \d s \d t,
+       \qquad
+       f(x,y) = \frac{\prtl^2 F(x,y)}{\prtl x \prtl y}
+    \]
+
+
+    \blue{general case}: density $f: \Real^n \to [0,1]$
+    \[
+       F(\vc x) = F(x_1, \dots , x_n) = \int_{-\infty}^{x_1} \cdots \int_{-\infty}^{x_n} f(t_1, \dots, t_n)
+    \]
+    also
+    \[
+       f(x_1,\dots, x_n) = \frac{\prtl^n F(x_1,\dots, x_n)}{\prtl x_1 \dots \prtl x_n}
+    \]
+    if all derivatives exists.
+\end{frame}
+
+\begin{frame}{Marginal distribution}
+    distribution function of component $X_i$ of the vector $X$:
+    \[
+        F_{X_i}(x) = P( X_i < x) = \lim_{\vc y \to \infty} F(y_1,\dots, y_{i-1}, x, y_{i+1}, \dots, y_n)
+    \]
+    for discrete vectors:
+    \[
+        P_{X_i}(x) = \sum_{ \vc y = \vc x_j, y_i=x} P(\vc y) 
+    \]
+    for continuous vectors:
+    \[
+        f_{X_i}(x) = \int_{\vc y; y_i=x}  f(\vc y) \d \vc y
+    \]
+
+\end{frame}
+
+\begin{frame}{Independent random variables}
+Random variables $X$ and $Y$ are \df{independent} iff
+\[
+  F_{(X,Y)} (x,y) = F_X(x) F_Y(y).
+\]
+
+also joint density function is product of marginal density functions:
+\[
+  f(x,y) = f_X(x) f_Y(y)
+\]
+
+
+\xskip
+Same holds for joint dicrate probabilities:
+\[
+   P(X = x_i \text{ and } Y = y_i) = P(X = x_i) P(Y = y_i)
+\]
+
+\end{frame}
+
+
+\begin{frame}{Covariance, Correlation, Correlation matrix}
+\df{Covariance} of variables $X$ and $Y$:
+\[
+  {\rm cov}(X,Y) = E(X-EX)(Y-EY)
+\]
+
+\xskip
+\df{Correlation} of variables $X$ and $Y$:
+\[
+  {\rm corr}(X,Y) = \frac{ {\rm cov]}(X,Y)}{\sigma(X)\sigma(Y)}
+\]
+
+\xskip
+\df{Variance and correlation matrix} of random vector $\vc X$:
+\[
+  ({\rm var} \vc X )_{i,j}={\rm cov}(X_i,X_j),\qquad ({\rm  corr} \vc X)_{i,j} = {\rm corr}(X_i, Y_j)
+\]
+
+\end{frame}
+
+
+\begin{frame}{Multivariate normal distribution}
+If $\vc\mu$ is $n$-dim vector and $\tn D$ is pos. def. $n \times n$ matrix, 
+joint density function is 
+\[
+  f(\vc{x}) = \frac{1}{ \sqrt{(2\pi)^n \det(\tn D^{-1}) } }\exp\big( -\frac{1}{2} (\vc{x}-\vc{\mu})^T \tn D^{-1} (\vc{x} - \vc{\mu}) \big).
+\]
+
+\end{frame}
+
+\begin{frame}{Multinomial distribution}
+$m$ possible outcomes with probabilities $p_1,\dots, p_m$,\\
+satisfies: $\sum_i p_i = 1$
+
+\xskip
+$n$ trials
+
+\xskip
+$\vc{k}=(k_1,\dots k_m)$ is vector of frequencies of individual outcomes,\\
+satisfies: $\sum_i k_i = n$
+
+
+\[
+p(k_1, \dots, k_m)= \frac{n!}{k_1!\dots k_m!} {p_1}^{k_1} \dots {p_m}^{k_m}
+\]
+\end{frame}
+
+
+
+
+
+
+\section{Limit theorems}
+
+
+\begin{frame}{Limit theorems - motivation questions}
+\begin{itemize}
+ \item Why there is so many random variables with normal distribution?
+  \pause
+ \item How to calculate probabilities of binomial distribution for big  $n>100$? Problem with big factorials \dots
+\pause
+ \item What type of relationship is between sample mean and expectation (mean value)?
+\pause
+ \item How general is the  $3\sigma$-rule?
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Convergence of random variables}
+Having infinite sequence $X_n$ of random variables, 
+
+\xskip
+what does it mean if we say that $X_n$ converge to random variable $X$?
+
+\end{frame}
+
+\begin{frame}{Convergence in distribution}
+Random variables are given by distribution functions:
+
+\xskip
+ $X_n$ \df{converges in distribution} to $X$, iff 
+ \[
+   \lim_{n\to\infty} F_{X_n}(x) = F_{X}(x)\quad \forall\, x\in\Real
+ \]
+ \dots point-wise convergence of sequence of functions.
+\end{frame}
+
+\begin{frame}
+Let us consider a sequence of random variables $X_n$. And a random variable $X$. We say that 
+\begin{itemize}
+ \item $X_n$ \df{converges  almost surely} to $X$,\\
+ iff the probability of convergence is $1$, i.e.
+ \[
+    P\{ \omega\in \Omega | X_n(\omega) \to X(\omega) \} = 1
+ \]
+ short notation: $X_n\to X$ a.s.
+ 
+ \pause
+ \item $X_n$ \df{converges in probability}, iff
+ \[
+   P\{\omega\in\Omega: \abs{X_n(\omega) -X(\omega)}> \eps\} \to  \quad \forall\, \eps> 0
+ \]
+ short notation: $X_n \stackrel{P}{\to} X$.
+ 
+ \pause
+ \item $X_n$ \df{converges in mean square}\cz{podle středu}, iff
+ \[
+    E(X_n - X)^2 \to 0
+ \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{examples}
+We measure number of decays $X_n$ of a radioactive sample during every day.
+Every $X_n$ has Poison distribution, but with different $\lambda_n$, in limit 
+we should get random variable $X\sim Po(\lambda)$ that corresponds to natural radioactivity (e.g. cosmic rays).
+\begin{itemize}
+ \item \blue{converges  almost surely} - If we get one realization of variables $X_n$ and $X$, what is probability that $x_n \to x$ ?
+ \item \blue{converges in probability} - What is points resulting form (long) sequence of trials of an archer
+ \item \blue{converges in mean square} - 
+ \item \blue{converges in distribution} - pointwise convergence of  
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Relations between convergences}
+ \begin{itemize}
+  \item ``almost sure``, ``in probability`` and ``in mean square'' implies ''in distribution``
+  \item ''almost sure`` and ''in mean square`` implies ''in probability``
+ \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Markov's inequality}
+\begin{theorem}
+ If $X$ is a random variable, then $P(\abs{X}\ge a) \le \frac{E\abs{X}}{a}$
+\end{theorem}
+
+\xskip
+Proof:\\
+Indicator random variable $I_M$ of event $M$ is $I_M =1$ if $M$ occurs, zero otherwise.
+
+\xskip
+For every outcome we have:
+\[
+    \abs{X}\ge aI_{\abs{X}\ge a} = \left \{
+    \begin{array}{ll}
+        a, &\text{if }\abs{X}\ge a\\
+        0, &\text{otherwise}
+    \end{array}\right.
+\]
+we compute expectation:
+\[
+  E(\abs{X}) \ge E(aI_{\abs{X}\ge a}) = a P(\abs{X}\ge a)
+\]
+\end{frame}
+
+\begin{frame}{Chebyshev's inequality}
+\[
+   P\{\abs{X-EX}\ge a \sigma(X)\} \le \frac{1}{a^2}
+\]
+Proof: Use Markov's ineq. for $Y=\abs{X-EX}^2$.
+
+\xskip
+\begin{itemize}
+\item This explains the $3$-sigma rule: probability $p$ that any RV is more then $3\sigma$ from the mean is less then $1/9\approx0.111$
+
+\item for unimodal RV it holds that $LHS \le \frac{4}{9a^2}$ (Vysochanskiï–Petunin inequality), so $p\le 4/81\approx0.05$
+
+\item for normal RV: $p \le 0.0026$ 
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}{weak Law of big numbers}
+Let $X_n$ be a sequence of \blue{independent} r.v. with \blue{same mean values} $EX_n=\mu$ then
+for random variable:
+\[
+  \overline{X_n}:= \frac{1}{n} \sum_{i=1}^n X_i
+\]
+holds
+\[
+ \overline{X_n} \stackrel{P}{\to} \mu
+\]
+\end{frame}
+
+\begin{frame}{Proof:}
+If we assume finite variances of r.v. $X_n$, i.e. $DX_n \le C$:
+
+\begin{itemize}
+ \item   $E\overline{X}_n = \mu$
+ \item  For variance of the sum, it holds:
+\[
+  var(X+Y) = var(X) + var(Y) + 2cov(X,Y)
+\]
+
+ \item and we have $cov(X,Y) = 0$ for independent variables, thus: 
+\[
+  D\overline{X}_n = \frac{1}{n^2} \sum_{i=1}^n var(X_i)\le \frac{Cn}{n^2} 
+\]
+
+\end{itemize}
+
+
+using Markov's inequality: 
+\[
+  P(\abs{\overline{X_n} - \mu} \ge \eps ) = P(\abs{\overline{X_n} - \mu}^2 \ge \eps^2 ) \le \frac{C}{n\eps^2} \to 0
+\]
+\end{frame}
+
+
+
+\begin{frame}{strong Law of big numbers}
+Let $X_n$ be a sequence of \blue{independent} r.v. with the 
+\blue{same distribution} and finite  mean value $EX_i = \mu$ then
+\[
+ \overline{X_n} \to \mu \quad \text{almost surly.}
+\]
+\end{frame}
+
+\begin{frame}{Central limit theorem}
+Let $X_n$ be a sequence of \blue{independent} r.v. with \blue{same distribution} with finite $EX_i =\mu$ and $DX_i =\sigma^2$, then 
+\[
+  \sqrt{n}(\ol{X}_n -\mu)\to N(0, \sigma^2)\quad\text{in distribution}
+\]
+or equivalently 
+\[
+  Z_n=\sqrt{n}\frac{\ol{X}_n-\mu}{\sigma} \to N(0,1)\quad\text{in distribution}
+\]
+
+\xskip
+It holds also for different distributions, but one have to assume some properties of the higher moments.
+
+For finite sequences: 
+\[
+ \sum_{i=1}^{n} X_i  \approx N(n\mu, n\sigma^2)
+\]
+\[
+ \ol{X}_n \approx N(\mu, \frac{\sigma^2}{n})
+\]
+\end{frame}
+
+\begin{frame}{de Moivre–Laplace theorem}
+\[
+ Bi(n,p) \approx N(np, np(1-p) )
+\]
+if $n$ is big enough, more precisely
+\[
+ np(1-p) \ge 9
+\]
+or
+\[
+ np > 5\quad \text{a} \quad n(1-p) > 5
+\]
+
+
+\end{frame}
+
+\end{document}
+
+

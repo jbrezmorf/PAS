@@ -1,0 +1,423 @@
+
+% $Header: /cvsroot/latex-beamer/latex-beamer/solutions/generic-talks/generic-ornate-15min-45min.en.tex,v 1.5 2007/01/28 20:48:23 tantau Exp $
+
+\documentclass[smaller]{beamer}
+\mode<presentation>
+{
+  \usetheme{Singapore}
+  \usefonttheme[onlymath]{serif}
+  % or ...
+ %  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+
+\usepackage[czech]{babel}
+% or whatever
+\usepackage[utf8]{inputenc}
+% or whatever
+%\usepackage{times}
+%\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+
+\title{PAS13 -- Advanced ANOVA}
+
+\author{Jan B\v rezina}
+\institute % (optional, but mostly needed)
+{
+  %\inst{2}%
+  Technical University of Liberec
+}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+%\beamerdefaultoverlayspecification{<+->}
+
+% ***************************************** SYMBOLS
+\def\div{{\rm div}}
+\def\Lapl{\Delta}
+\def\grad{\nabla}
+\def\supp{{\rm supp}}
+\def\dist{{\rm dist}}
+%\def\chset{\mathbbm{1}}
+\def\chset{1}
+
+\def\Tr{{\rm Tr}}
+\def\sgn{{\rm sgn}}
+\def\to{\rightarrow}
+\def\weakto{\rightharpoonup}
+\def\imbed{\hookrightarrow}
+\def\cimbed{\subset\subset}
+\def\range{{\mathcal R}}
+\def\leprox{\lesssim}
+\def\argdot{{\hspace{0.18em}\cdot\hspace{0.18em}}}
+\def\Distr{{\mathcal D}}
+\def\calK{{\mathcal K}}
+\def\FromTo{|\rightarrow}
+\def\convol{\star}
+\def\impl{\Rightarrow}
+\DeclareMathOperator*{\esslim}{esslim}
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\DeclareMathOperator{\ess}{ess}
+\DeclareMathOperator{\osc}{osc}
+\DeclareMathOperator{\curl}{curl}
+
+%\def\Ess{{\rm ess}}
+%\def\Exp{{\rm exp}}
+%\def\Implies{\Longrightarrow}
+%\def\Equiv{\Longleftrightarrow}
+% ****************************************** GENERAL MATH NOTATION
+\def\Real{{\rm\bf R}}
+\def\Rd{{{\rm\bf R}^{\rm 3}}}
+\def\RN{{{\rm\bf R}^N}}
+\def\D{{\mathbb D}}
+\def\Nnum{{\mathbb N}}
+\def\Measures{{\mathcal M}}
+\def\d{\,{\rm d}}               % differential
+\def\sdodt{\genfrac{}{}{}{1}{\rm d}{{\rm d}t}}
+\def\dodt{\genfrac{}{}{}{}{\rm d}{{\rm d}t}}
+
+\def\vc#1{\mathbf{\boldsymbol{#1}}}     % vector
+\def\tn#1{{\mathbb{#1}}}    % tensor
+\def\abs#1{\lvert#1\rvert}
+\def\Abs#1{\bigl\lvert#1\bigr\rvert}
+\def\bigabs#1{\bigl\lvert#1\bigr\rvert}
+\def\Bigabs#1{\Big\lvert#1\Big\rvert}
+\def\ABS#1{\left\lvert#1\right\rvert}
+\def\norm#1{\bigl\Vert#1\bigr\Vert} %norm
+\def\close#1{\overline{#1}}
+\def\inter#1{#1^\circ}
+\def\ol#1{\overline{#1}}
+\def\ul#1{\underline{#1}}
+\def\eqdef{\mathrel{\mathop:}=}     % defining equivalence
+\def\where{\,|\,}                    % "where" separator in set's defs
+\def\timeD#1{\dot{\overline{{#1}}}}
+
+% ******************************************* USEFULL MACROS
+\def\RomanEnum{\renewcommand{\labelenumi}{\rm (\roman{enumi})}}   % enumerate by roman numbers
+\def\rf#1{(\ref{#1})}                                             % ref. shortcut
+\def\prtl{\partial}                                        % partial deriv.
+\def\Names#1{{\scshape #1}}
+\def\rem#1{{\parskip=0cm\par!! {\sl\small #1} !!}}
+
+\def\Xint#1{\mathchoice
+{\XXint\displaystyle\textstyle{#1}}%
+{\XXint\textstyle\scriptstyle{#1}}%
+{\XXint\scriptstyle\scriptscriptstyle{#1}}%
+{\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+\!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$}
+\vcenter{\hbox{$#2#3$}}\kern-.5\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+
+% ******************************************* DOCUMENT NOTATIONS
+% document specific
+\def\rh{\varrho}
+\def\vl{{\vc{u}}}
+\def\th{\vartheta}
+\def\vx{\vc{x}}
+\def\vX{\vc{X}}
+\def\vr{\vc{r}}
+\def\veta{\vc{\eta}}
+\def\dx{\,\d\vx}
+\def\dt{\,\d t}
+\def\bulk{\zeta}
+\def\cS{\close{S}}
+\def\eps{\varepsilon}
+\def\phi{\varphi}
+\def\Bog{{\mathcal B}}
+\def\Riesz{{\mathcal R}}
+\def\distr{\mathcal D}
+\def\Item{$\bullet$}
+
+\def\MEtst{\mathcal T}
+%***************************************************************************
+\setbeamercolor{my blue}{fg=blue}
+\def\blue#1{{\usebeamercolor[fg]{my blue} #1}}
+
+\setbeamercolor{my green}{fg=green}
+\def\green#1{{\usebeamercolor[fg]{my green} #1}}
+
+% color for term definition
+\setbeamercolor{my orange}{fg=orange}
+\def\df#1{{\usebeamercolor[fg]{my orange} #1}}
+\def\xskip{{\vspace{2ex}}}
+
+\def\cz#1{{\small (#1)}}
+
+\def\E{\vc{\mathsf{E}}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Linear model}
+\end{frame}
+
+\begin{frame}{Linear sub-model}
+\end{frame}
+
+\begin{frame}{One-way ANOVA as sub-model test}
+TODO: comparison of sub models in R
+\end{frame}
+
+\begin{frame}{Post-hoc analysis vs. two sample $T$-test}
+Level of significance of "family" of $T$-test is higher then used significance level.
+\begin{center}
+ \includegraphics[scale=0.25]{./12_type_I_error_vs_groups.jpg}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Post-hoc analysis vs. two sample $T$-test}
+all-to-all $T$-test:
+
+\verb'R> pairwise.t.test( data_vector, factor, p.adj=..., pool.sd=)'
+
+\xskip
+corrections (see \verb'R> ?p.adjust') :
+
+Bonferroni, Holm, Hochberg, Benjamini-Hochberg (BH) ; ordered according its usual power
+
+TukeyHSD - should be most precise for post-hoc ANOVA tests
+\end{frame}
+
+\begin{frame}[fragile]{Post-hoc analysis example}
+Taken from \verb'R> pairwise.t.test'.
+\begin{verbatim}
+> attach(airquality)
+> boxplot(Ozzone ~ Month)
+> pairwise.t.test(Ozone,Month)
+
+        Pairwise comparisons using t tests with pooled SD 
+
+data:  Ozone and Month 
+
+    May     Jun     Jul     Aug    
+Jun 1.00000 -       -       -      
+Jul 0.00026 0.05113 -       -      
+Aug 0.00019 0.04987 1.00000 -      
+Sep 1.00000 1.00000 0.00488 0.00388
+
+P value adjustment method: holm 
+
+R> by(airquality, Month, sd, na.rm=T)
+\end{verbatim}
+Pooled SD is not appropriate ...
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Test of variance homogeneity}
+Also called ``homoscedasticity''.
+
+\xskip
+Bartlett's test - sensitive to normality; \verb'bartlett.test'
+
+\xskip
+Levene's test - applying ANOVA to $abs(Y_{ij} - y_{i.})$, approximative
+
+\begin{verbatim}
+R> install.packages("car") # Companion to Applied Regression
+R> library(car)
+R> leveneTest(Ozone ~ Month) 
+Levene's Test for Homogeneity of Variance (center = median)
+       Df F value   Pr(>F)   
+group   4  3.9558 0.004863 **
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Kruskal-Wallis test}
+Let $Y_{i1}, \dots, Y_{im}$ is selection from distribution $F_i$, $i=1,\dots I$. 
+We assume independence of all variables and test 
+\[
+ H_0: F_1(x) = \dots F_I(x) \qquad \text{far all $x$}
+\]
+with alternative $F_i(x)\ne F_j(x)$ for some $i,j,x$.
+
+\xskip
+$R_{ij}$ rank in sorted over-all selection of size $n=n_1+\dots+n_I$.
+Rank sum for ever group is: $T_i = \sum_j R_{ij}$
+The statistic:
+\[
+ Q=\frac{12}{n(n+1)}\sum_{i=1}^I \frac{T_i^2}{n_i} - 3(n+1)
+\]
+has asymptotically $\chi^2_{I-1}$ distribution.
+\end{frame}
+
+\begin{frame}[fragile]{K-W post-hoc in R}
+\begin{verbatim}
+>data(diamonds)
+>
+\end{verbatim}
+
+\end{frame}
+
+
+
+\begin{frame}{Two-way ANOVA without interactions}
+\end{frame}
+
+\begin{frame}{Two-way ANOVA with interactions}
+\end{frame}
+
+
+\begin{frame}{Motivation example}
+ Bending of a beam in dependance of the pressure/force.
+
+ \begin{center}
+\begin{tabular}{l|llllll}
+pressure $x_i$ & 2 & 4 & 6 & 8 & 10 & 12\\
+\hline\\
+deformation $Y_i$ & 14 & 35 & 48 & 61 & 80 & 93\\
+\end{tabular}
+\end{center}
+
+\xskip
+\begin{itemize}
+  \item We assume, that $x_i$ are precise (e.g. calibrated weights).
+  \item We want to test hypothesis about linear dependency: $y_i= \beta x_i + e_i$.
+  \item We assume that $e_i \sim N(0,\sigma^2)$ is independent of $x_i$.
+  \item How to get estimate for parameter $\beta$ of the model?
+  \item How to compare models $y_i=\beta x_i+e_i$ vs. $y_i=\alpha + \beta x_i +e_i$?
+\end{itemize}  
+\end{frame}
+
+\begin{frame}{Simplest least squares method}
+ Expecting values: $\hat{y}_i = \beta x_i$. We find $\beta$ minimizing
+ \[
+     S(\beta)= \sum_i (y_i - \hat{y}_i)^2 
+ \]
+ \dots derivative and solving linear eq. gives estimate $b$
+ \[
+    b=\frac{\sum_i x_i Y_i}{\sum_i x_i^2}
+ \]
+ 
+ We denote $R^2=S(b)$ the \df{residual sum of squares}. The statistics
+ \[
+    T=\frac{b}{s}\sqrt{\sum_i x_i^2}= b\sqrt{\frac{(n-1)\sum_i x_i^2}{R^2}}, \qquad s^2 = \frac{R^2}{n-1}
+ \]
+ has distribution $t_{n-1}$. We reject hypothesis $H_0: b=0$, if $T$ is large.
+\end{frame}
+
+
+\begin{frame}{Regresní přímka procházející počátkem}
+ máme 2 sady dat: $\{X_i\}$, $\{Y_i\}$, $i=1,\dots,n$
+ předpokládejme závislost ve tvaru:
+ \[
+    Y_i = \beta X_i + e_i,
+ \]
+ kde $e_i$ je NV s rozdělením $N(0,\sigma)$. Rozplyl nezávisí na $i$ !!! 
+ 
+\end{frame}
+
+\begin{frame}{Metoda maximální věrohodnosti}
+ Hledáme parametr $b$, tak aby hustota pravděpodobnosti $f$ byla pro vektor $Y$ maximální:
+ \[
+   f(Y;b,\sigma) = \frac{1}{(2\pi)^{n/2}\sigma^n} exp\Big\{ -\frac{1}{2\sigma^2} \sum_{i=1}^{n} (Y_i - b X_i)^2 \Big\}
+ \]
+ To platí tehdy pokud je exponent minimální. Položíme parciální derivace rovné nule a dostaneme:
+ \[
+    \big(\sum_{i=1}^n X_i^2\big) b = \sum_{i=1}^n X_iY_i 
+ \]
+ a tedy 
+\[ 
+   b = \frac{\sum_{i=1}^n X_iY_i}{\sum_{i=1}^n X_i^2}.
+\]
+... to je bodový odhad parametru $\beta$.
+\end{frame}
+
+\begin{frame}{Test o regresním parametru}
+Odhad $b$ je lineární kombinace NV $Y_i$ s normálním rozdělením, proto má také normální rozdělení. Určíme jeho parametry:
+\[
+ E b = \frac{\sum_{i=1}^n X_i E Y_i}{\sum_{i=1}^n X_i^2} = \frac{\sum_{i=1}^n X_i (\beta X_i)}{\sum_{i=1}^n X_i^2} =\beta
+\]
+\[
+ D b = \sum_{i=1}^n \Big(\frac{X_i}{\sum_{i=1}^n X_i^2}\Big)^2 D Y_i = \frac{\sigma^2}{{\sum_{i=1}^n X_i^2}}
+\]
+Jelikož $\sigma$ neznáme neznáme ani $D b$ jde tedy o odhad sřední hodnoty $\beta$ při neznámém rozptylu:
+\[
+ T = \frac{b-\beta}{s_b} = \frac{b - \beta}{s} \sqrt{\sum_{i=1}^n X_i^2}
+\]
+má Studentovo rozdělení $t_{n-1}$, přitom
+\[
+ s^2 = \frac{R}{n-1} = \frac{\sum (Y_i - b X_i)^2}{n-1}
+\]
+je reziduální rozptyl, $R$ je reziduální součet čtverců. 
+\end{frame}
+
+
+\begin{frame}{Příklad}
+ Průhyb desky v závislosti na tlaku.
+\begin{center}
+\begin{tabular}{l|llllll}
+Tlak $X_i$ & 2 & 4 & 6 & 8 & 10 & 12\\
+\hline\\
+Průhyb $Y_i$ & 14 & 35 & 48 & 61 & 80 & 93\\
+\end{tabular}
+\end{center}
+
+\[
+  b = 7.857\quad s^2 = 4.7\quad T = 69,041
+\]
+$t_5(0.975) = 2.571$, zamítáme hypotézu $H0: \beta = 0$. 
+%Intevalový odhad je:
+%\[
+%  b +/- t_5(1-\alpha/2) s / \sqrt{\sum X_i^2} = 7.857 +/- 
+%\]
+
+\end{frame}
+
+\begin{frame}{General linear model}
+Consider $n$ measurements of a quantity $Y$, that possibly depends on $k$ quantities $X_j$  in linear way:
+\[
+   \vc{Y} = \sum_{j=1}^k \vc{X_j} \beta_j + \vc{e} = \tn X \vc{\beta} + \vc e
+\]
+We assume, $\E \vc e = \vc 0$, $var \vc e = \sigma^2 \tn I$. $\sigma^2$ is unknown, $X_{ij}$ are exact.
+Determine estimate of $\vc \beta$ by minimization of:
+\[
+   S(\vc b) = (\vc Y -\tn X\vc b)^T (\vc Y - \tn X\vc b)
+\]
+\dots
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Using R}
+\begin{verbatim}
+ > d=data.frame( press=seq(2,12,2), def=c(14, 35, 48, 61, 80, 93) )
+> plot( def ~ press, data=d)
+> model=lm( def ~ press, data=d)
+> model
+...                                                                                                                                                                                                                                                                               
+Coefficients:                                                                                                                                                                                                                                                                  
+(Intercept)        press                                                                                                                                                                                                                                                       
+     0.8667       7.7571                                                                                                                                                                                                                                                       
+
+> summary(model)                                                                                                                                                                                                                                                               
+...                                                                                                                                                                                                                                                                               
+Coefficients:                                                                                                                                                                                                                                                                  
+            Estimate Std. Error t value Pr(>|t|)                                                                                                                                                                                                                               
+(Intercept)   0.8667     2.2180   0.391    0.716                                                                                                                                                                                                                               
+press         7.7571     0.2848  27.241 1.08e-05 ***                                                                                                                                                                                                                           
+---                                                                                                                                                                                                                                                                            
+Residual standard error: 2.382 on 4 degrees of freedom                                                                                                                                                                                                                         
+Multiple R-squared: 0.9946,     Adjusted R-squared: 0.9933                                                                                                                                                                                                                     
+F-statistic: 742.1 on 1 and 4 DF,  p-value: 1.08e-05   
+\end{verbatim}
+ 
+\end{frame}
+
+
+
+
+\end{document}
+
+
