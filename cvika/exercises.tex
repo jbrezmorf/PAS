@@ -13,6 +13,7 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{listings}
+\usepackage{textcomp}
 %
 \newtheorem{theorem}{Věta}[section]
 \newtheorem{proposition}[theorem]{Tvrzení}
@@ -98,8 +99,8 @@
 
 
 \def\result#1{{\color{green} #1}}
-%\def\answer#1{{\color{red} #1}}
-\def\answer#1{}
+\def\answer#1{{\color{red} #1}}
+%\def\answer#1{}
 
 \addtolength{\textwidth}{3cm}
 \addtolength{\textheight}{4.5cm}
@@ -336,12 +337,12 @@ Tasks:
 
 \section{Exercise 5}
 
-\subsection{Mean value tests and estimates}
+\subsection{Mean value tests and estimates (Z01)}
 Measurement of heat conductivity of a wall gives results:
 \[
     0.62, 0.64, 0.57,0.61, 0.59, 0.57, 0.62, 0.59
 \]
-Testujte, zda je koeficient roven $0.6$ a zda je menší než norma o hodnotě $0.6$.
+Test if the coefficient satisfies norm $0.6$.
 
 \begin{enumerate}
  \item compute average and sample standard deviance
@@ -352,10 +353,16 @@ Testujte, zda je koeficient roven $0.6$ a zda je menší než norma o hodnotě $
  \item use R function \verb'test.t' to preform both tests and determine $95\%$ interval estimates
 \end{enumerate}
 
-\subsection{}
+\subsection{Proportion test (Z05)}
+Governor got 60\% votes in last poll. In survay counting 100 citizens,
+47 would vote for him in upcomming poll. Can we expect same result in upcomming poll?
+\begin{itemize}
+ \item use R \verb'prop.test'
+ \item use approximation, discuss its validity
+\end{itemize}
 
 
-
+\subsection{Variance test (Z04)}
 Volf priklady pro AMA
 Z04 - proportion test, different size
 Z06 - odhad stredni hodnoty, velikost souboru
@@ -366,6 +373,116 @@ A12
 
 A01 - test na Poisonovo rozdeleni
 A05 !! - test medianu
+
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\noindent
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Exercise 6}
+
+\subsection{Two sample $t$-test (A13)}
+download datafile: \verb'http://atrey.karlin.mff.cuni.cz/~morf/vyuka/pas/cvika/cvika_6_kalcit.dat'
+
+\begin{itemize}
+ \item make box plot of data
+ \item Is there a systematic error?  (use at least two methods)
+ \item Is there difference in precision?
+\end{itemize}
+
+%\answer{ 
+%\begin{verbatim}
+%K=read.table( "cvika_6_kalcit.dat", header=T, colClasses=c("numeric", "factor"))
+%boxplot( weight ~ method, data=K)
+%t.test( weight ~ method, data=K)
+%var.test( weight ~ method, data=K)
+%\end{verbatim}
+%}
+
+\subsection{Corellation (A15)}
+download datafile: \verb'http://atrey.karlin.mff.cuni.cz/~morf/vyuka/pas/cvika/cvika_6_asfalt.dat'
+Melting point of asphalt and penetration into asphalt at 25\textdegree C
+
+\begin{itemize}
+ \item Are they independent? We assume 2D normal distribution.
+
+ \item plot data to "see" dependency
+ \item use various methods of cor.test
+\end{itemize}
+%ad 2) 
+%cor.test( ~ temp + penetration, data=A)
+
+
+\subsection{Queue statistics (A01)}
+
+\begin{tabular}{lllllllll}
+in queue        : &0  &1   &2   &3  &4  &5  &6  &7 and more\\
+frequency       : &65 &121 &144 &99 &41 &15 &10 &5
+\end{tabular}
+Test that data are comming from Poisson distribution (Goodness of fit).
+
+
+
+%lambda=(t(b_freq) %*% c(0:7))/sum(b_freq)
+%func <- function(l) { pp=dpois(0:6,l); pp[8]=1-sum(pp); x=chisq.test(b_freq, p=pp); return <- x$p.value }
+%y=lapply(x,func)
+%plot(x,y)
+
+%func <- function(l) { pp=dpois(0:6,l); pp[8]=1-sum(pp); x=chisq.test(b_freq, p=pp); return <- 1-x$p.value }
+%optimise(func, interval=c( lambda-0.2, lambda+0.2) )
+
+
+%4) example(InsectSpray)
+%
+%Regression:
+%  
+%Z02     kvadraticka
+%Z03     exponencialni 
+%
+%In R:
+%
+%plot(age,height)
+%> res=lm(height~age)
+%abline(res)
+%summary(res) # tests about coefficiants
+%coef(res)
+%resid(res)
+%fitted(res)
+%? extrapolace do dalsich bodu
+%predict(res, data.frame( old_Y = new_Y), level = 0.9,   interval="confidence")
+%
+%layout(matrix(1:4,2,2))
+%plot(res)
+%
+%00 - residuals vs. fitted values (should be randomly around zero)
+%10 - QQplot of residuals
+%01 - sqrt(rel. err.) vs. fitted  (should not be trend
+%
+%plot(cooks.distance(lm.out))
+%rlm() # from library(MASS)
+%
+%lines(lowess(Hwt ~ Bwt), col="red")
+%scatter.smooth(Hwt ~ Bwt)
+%
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
 % 
 % Rozdil mezi pouzitim T testu a Chi2 testu pro porovnani dvou vyberu (leva vs. prava pukla panve)
 % 

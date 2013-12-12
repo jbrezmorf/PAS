@@ -1,4 +1,4 @@
-.aux
+*.aux
 *.glo
 *.idx
 *.log
@@ -21,4 +21,10 @@
 *.mtc1
 *.out
 *.synctex.gz
+
+PAS*.pdf
+*.vrb
+*.nav
+*.backup
+*.snm
 

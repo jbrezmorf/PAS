@@ -441,10 +441,10 @@ $T=2.37$ greater then critical value $t_{11}(0.05) =1.796$, rejecting, $p_{val} 
 Cochran $H_A:  \mu_X\ne \mu_Y$:
 $T^{\star} = 2.4$, $t^{\star} = 2.6$, no reject $H_0$
 \xskip
-Aspin-Welch $f=9.044$, $t_f(0.025) = 2.26$, reject $H_0$, $p_{val} = 0.42$
+Aspin-Welch $f=9.044$, $t_f(0.025) = 2.26$, reject $H_0$, $p_{val} = 0.040$
 
 \xskip
-Satterthwait $h=11.086$, $t_h(0.025) =2.2$, reject $H_0$, $p_{val} = 0.037 $
+Satterthwait $h=11.086$, $t_h(0.025) =2.2$, reject $H_0$, $p_{val} = 0.035$
 
 \end{frame}
 
@@ -469,17 +469,32 @@ We reject $H_0:\sigma_1 = \sigma_2$ in favor  $H_A: \sigma_1\ne\sigma_2$ if
 \verb'R>var.test(x, y, ratio= )'
 \end{frame}
 
+\begin{frame}{$F$-distibution}
+\includegraphics[scale=0.6]{09_F_distributionCDF.png} 
+\includegraphics[scale=0.6]{09_F_distributionPDF.png} 
+\end{frame}
+
+
 \begin{frame}[fragile]{$F$-distribution}
+Distribution of ratio of two $\chi^2$ random variables.
+\[
+    \frac{m \chi_n^2}{n \chi_m^2} \sim F_{n,m}
+\]
+\[
+ T=\frac{s^2_X}{s^Y}=\frac{m-1}{n-1} \frac{\frac{s^2_X(n-1)}{\sigma^2}}{\frac{s^2_Y(m-1)}{\sigma^2}} \sim F_{n-1,m-1}
+\]
+
+
 \verb'R> pf( x, df1= , df2= )'
 
 \xskip
 \blue{properties:}
 \[
- F_{m,n}\Big(1-\frac{\alpha}{2}\Big) = \frac{1}{F_{n-1,m-1}\big(\frac{\alpha}{2}\big)}
- \quad\text{a}\quad
- F_{n-1,m-1}\Big(\frac{\alpha}{2}\Big)
+ F_{m,n}\Big(1-\frac{\alpha}{2}\Big) = \frac{1}{F_{n,m}\big(\frac{\alpha}{2}\big)}
 \]
 \end{frame}
+
+
 
 \begin{frame}{Example}
 \dots setting about manuring \cz{hnojení}: 
