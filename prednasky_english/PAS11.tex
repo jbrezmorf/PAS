@@ -159,9 +159,9 @@
 \end{frame}
 
 \begin{frame}{Motivation problem}
-(Amess et al. 1978) 22 bypass-patients are randomly
-divided into 3 treatment groups (different respiration). Differ the
-values of folic acid (vitamin B9) in red blood cells after 24 h?
+(Amess et al. 1978) 22 bypass-surgery patients are randomly
+divided into 3 treatment groups (different respiration). Is there difference in concentration of folic acid 
+(vitamin B9) in red blood cells after 24 h?
 
 \xskip
 Group 1:
@@ -197,8 +197,10 @@ Group 3:
 
 \begin{frame}{General problem}
   \begin{itemize}
-   \item Comparison of mean values within several samples, ($I$, $I>2$).\\
-   \item Assume $Y_{i,j} = \mu_i+e$, $e~N(0,\sigma^2)$
+   \item Comparison of mean values within several samples (groups)\\
+   \item groups $i \in I$, ($I$, $I>2$).\\
+   \item random vectors $Y_{i,j} = \mu_i+e$, $e~N(0,\sigma^2)$
+   \item assuming same error $e$ !!
    \item $H_0: \mu_1=\mu_2=\dots\mu_I=\mu$      
    \item We are testing if the mean value depneds on the group/treatement.
  
@@ -256,33 +258,40 @@ Calculation of the statistics $F$ is summarized in the ANOVA table:
  & $SS$ & $df$ & $MS = SS/df$ & $F$ \\
 \hline
 
-groups & $SS_{G}$ & $df_G = I-1$ & $MS_B=SS_G / df_G$ & $F = MS_B / s^2$\\
+groups & $SS_{g}$ & $df_g = I-1$ & $MS_g=SS_g / df_g$ & $F = MS_g/ s^2$\\
 \hline
-residual &$SS_{R}$ & $df_R = n-I$ & $s^2 = SS_R / df_R$ &  --- \\
+residual &$SS_{r}$ & $df_r = n-I$ & $MS_r=SS_r / df_r$ &  --- \\
 \hline
-total & $SS_T$ & $df_T = n-1$ & ---  & ---
+total & $SS_t$ & $df_t = n-1$ & ---  & ---
 \end{tabular}
 
 \xskip
-$s^2$ is also called \df{residual variance}
+$s^2=MS_r$ is also called \df{residual variance}
 
 \xskip
-$H_0$ is rejected if $F \ge F_{df_B,df_e}(\alpha)$.
+We in fact test hypothesis: $H_A: MS_g > MS_r$, thus
+\[ p_{val} =1 - F_{df_g,df_r}(F) \]
 \end{frame}
 
 \begin{frame}[fragile]{Motivation example \dots preparing data}
 \blue{from a text file}, anova.dat
+
+\xskip
+B9 concentration in dependance of respiration mixture
 \begin{verbatim}
  conc   resp 
  243      1 
  ...
- 241         3
- 258         3 
+ 241      3
+ 258      3 
 \end{verbatim}
 \begin{verbatim}
 > B9=read.table("anova.dat", header=T)
-> B9$resp = factor(B9$resp) 
+> B9$resp = factor(B9$resp)     # make factor from numeric
 \end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Motivation example \dots preparing data}
 \blue{from individual vectors}
 \begin{verbatim}
 > treat1
@@ -291,7 +300,9 @@ $H_0$ is rejected if $F \ge F_{df_B,df_e}(\alpha)$.
 [1] 206 210 226 249 255 273 285 295 309
 > treat3
 [1] 241 258 270 293 328
-> resp=factor(  c(rep(1,length(treat1)), rep(2,length(treat2)), rep(3,length(treat3)) ) )  
+> resp=factor(  c( rep(1,length(treat1)),
+                   rep(2,length(treat2)),
+                   rep(3,length(treat3)) ) )  
 > conc=c(treat1,treat2,treat3)
 > B9=data.frame(conc, resp) 
 \end{verbatim}
@@ -300,10 +311,19 @@ $H_0$ is rejected if $F \ge F_{df_B,df_e}(\alpha)$.
 \begin{frame}[fragile]{Solving motivation example}
 \begin{verbatim}
 > attach(B9)
+
+# per group mean, var, and group size
 > Yi=tapply(conc, resp, mean)
 > Vi=tapply(conc, resp, var)
-> Y=mean(conc)
 > ni=tapply(conc, resp, length)
+
+# total mean
+> Y=mean(conc)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Solving motivation example}
+\begin{verbatim}
 > SSg= sum( ni * (Yi-Y)^2)	;SSg
 [1] 15515.77
 > SSr=sum( (ni-1)*Vi )		;SSr
@@ -356,7 +376,7 @@ Which pairs are responsible for rejecting H0?
  \] 
 \end{frame}
 
-\begin{frame}{Using Tukey test in R}
+\begin{frame}[fragile]{Using Tukey test in R}
 \begin{verbatim}
 > TukeyHSD(B9_aov)
   Tukey multiple comparisons of means
@@ -373,11 +393,66 @@ $resp
  
 \end{frame}
 
-\begin{frame}{Linear model}
+
+
+\begin{frame}{Kruskal-Wallis test}
+samples (groups) $i\in I$:\\
+\[
+    \{Y_{ij}\}, j< n_i
+\]
+assume $Y_{ij} \sim X_i$ with same unknown variance $DX_i = \sigma$.
+
+\xskip
+$H_0: F_{X_i}^{-1}(0.5) = x_{0.5}$
+
+\xskip
+$H_A:$ different medians
+\end{frame}
+
+\begin{frame}[fragile]{K-W test procedure}
+\begin{enumerate}
+ \item sort all data $Y_{ij}$
+ \item determine ranks $R_{ij}$, possibly average rank over same values\\
+ \begin{tabular}{llllllll}
+  values:& 33& 34& 34& 34& 35& 35& 37\\ 
+  ranks: & 1 & 3 & 3 & 3 &4.5&4.5& 6
+ \end{tabular}
+ \item per group rank sums:
+ \[
+    T_i = \sum_{j=1}^{n_i} R_{ij}
+ \]
+ \item total rank sum:
+ \[
+    T = \sum_{i=1}^{I}\sum_{j=1}^{n_i} R_{ij} = N(N+1)/2
+ \]
+ \item statistics with approx. $\chi^2_{I-1}$ distribution:
+ \[
+   Q=\frac{12}{N(N+1)} \sum_{i=1}^{I} \frac{T_i^2}{n_i} - 3(N+1)
+ \]
+ \item 
+ \[
+   p_{val} = 1 - F_{I-1}(Q)
+ \]
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{K-W in R}
+\begin{verbatim}
+> kruskal.test(conc~resp, data=B9)
+
+        Kruskal-Wallis rank sum test
+
+data:  conc by resp
+Kruskal-Wallis chi-squared = 4.1852, df = 2, p-value = 0.1234
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{KW posthoc analysis}
  
 \end{frame}
 
-\begin{frame}{Submodel}
+
+\begin{frame}{Multifactor ANOVA}
  
 \end{frame}
 

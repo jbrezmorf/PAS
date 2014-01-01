@@ -15,6 +15,7 @@
 \usepackage[czech]{babel}
 % or whatever
 \usepackage[utf8]{inputenc}
+\usepackage{multicol}
 % or whatever
 %\usepackage{times}
 %\usepackage[T1]{fontenc}
@@ -190,7 +191,7 @@ $Y\in 1,\dots,r$ and $Z\in1,\dots,c$. We denote:
 For a selection from the distribution $\vc X$ of size $n$, we have random variables $n_{ij}$ - the frequency,
 with \blue{multinomial distribution}. These forms \df{contingency table}. We denote:
 \[
-   n_{i.}=\sum_j n_{ij},\qquad n_{.j}=\sum_n p_{ij}
+   n_{i.}=\sum_j n_{ij},\qquad n_{.j}=\sum_i p_{ij},\qquad n=\sum_{i,j} p_{ij}
 \]
 \dots \df{marginal frequencies}
 
@@ -198,7 +199,7 @@ with \blue{multinomial distribution}. These forms \df{contingency table}. We den
 
 \begin{frame}{Independence of variables}
 \begin{theorem}
- $Y$ and $Z$ are independent if and only if $p_{ij}=p_{i.}p_{.j}$.
+Discrete variables $Y$ and $Z$ are independent if and only if $p_{ij}=p_{i.}p_{.j}$.
 \end{theorem}
 
 \xskip
@@ -226,7 +227,7 @@ We want to test hypothesis $H_0$ about independence of $Y$ and $Z$, which is sam
   H_0: p_{ij}=p_{i.}p_{.j}
 \]
 Thus probabilities $p_{ij}$ of multinomial distribution depends on $r+c-2$ parameters,
-marginal probablities save $p_r.$ and $p_.c$ which are given by condition:
+marginal probabilities save $p_{r.}$ and $p_{.c}$ which are given by condition:
 \[
    \sum_i p_{i.} = \sum_j p_{.j} = 1
 \]
@@ -246,16 +247,118 @@ Test statistics
 \[
   \chi^2 = \sum_i \sum_j \frac{ (n_{ij} - m_{ij})^2 }{m_{ij}}, \text{where } m_{ij}=\frac{n_{i.}n_{.j}}{n}
 \]
-has under hypothesis $H_0$ distribution $\chi$-square with 
+has under hypothesis $H_0$ approximately $\chi^2$ distribution  with 
 \[
    rc-(r+c-2)-1 =  (r-1)(c-1)
 \]
 degrees of freedom.
+
+\xskip
+Assumptions:
+\begin{itemize}
+ \item Random sample, independent samples
+ \item 5 observations in every cell (small tables)\\
+ or in 80\% of cells (large tables)
+\end{itemize}
+
 \end{frame}
 
-%\begin{frame}[fragile]{In R}
+\begin{frame}{Example}
+\[
+  n=205,\quad df=4
+\]
 
-%\end{frame}
+\begin{multicols}{2}
+\[n_{ij} - m_{ij}\] 
+\begin{tabular}{r|rrr}
+ & mT & mM & mS \\
+\hline 
+wT & 3.36 & -4.14 &  0.78 \\
+wM & -2.43 & 0.77 & 1.66 \\
+wS & -0.92 & 3.37 & -2.44 
+\end{tabular}
+
+\[(n_{ij} - m_{ij})^2/m_{ij}\]
+\begin{tabular}{r|rrr}
+ & mT & mM & mS \\
+\hline 
+  wT &0.77 &0.71 &0.05\\
+  wM &0.20 &0.01 &0.12\\
+  wS &0.06 &0.46 &0.52
+\end{tabular}
+\end{multicols}
+\[
+    T=2.9,\quad p_{val}=1-F_{\chi^2,4}(T)=0.57
+\]
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{R : convert data frame to table}
+\begin{verbatim}
+> df=read.table("14_tab.dat")
+> df
+  freq w m
+1   18 T T
+2   20 T M
+3   12 T S
+4   28 M T
+5   51 M M
+6   25 M S
+7   14 S T
+8   28 S M
+9    9 S S
+> tab=xtabs(freq~w + m, data=df) 
+> tab
+   m
+w    M  S  T
+  M 51 25 28
+  S 28  9 14
+  T 20 12 18
+\end{verbatim}
+\end{frame}
+
+
+\begin{frame}[fragile]{R: test}
+\begin{verbatim}
+> chisq.test(tab)
+
+        Pearson's Chi-squared test
+
+data:  tab
+X-squared = 2.9072, df = 4, p-value = 0.5735
+
+> fisher.test(tab)
+
+        Fisher's Exact Test for Count Data
+
+data:  tab
+p-value = 0.5803
+alternative hypothesis: two.sided
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Mosaic plot}
+\hbox{
+    \kern-5ex\vbox{
+        \includegraphics[scale=0.3]{14_Eye_Hair.pdf}\\
+        {\tiny \verb'mosaicplot(~Eye+Hair,data=HairEyeColor, shade=T)'}
+    }
+    \kern-27ex\vbox{
+        \includegraphics[scale=0.3]{14_Hair_Eye.pdf}\\
+        {\tiny \verb'mosaicplot(~Hair+Eye,data=HairEyeColor, shade=T)'}
+    }
+}    
+\end{frame}
+
+\begin{frame}{Extensions}
+\begin{itemize}
+ \item 3-way tables and interactions
+ \item post-hoc analysis
+\end{itemize}
+ 
+\end{frame}
 
 
 \end{document}
