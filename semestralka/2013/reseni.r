@@ -108,11 +108,6 @@ values=c(v1,v2,v3)
 sizes=c(length(v1),length(v2),length(v3))
 factors=factor( rep(1:3,sizes) )
 dframe=data.frame( values, fac=factors )
-#
-# simplier
-# dframe=stack(list(v1=v1,v2=v2,v3=v3))
-
-
 
 # scatter plot
 ggplot(dframe, aes(fac,values))+geom_point()

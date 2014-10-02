@@ -1,7 +1,7 @@
 
 % $Header: /cvsroot/latex-beamer/latex-beamer/solutions/generic-talks/generic-ornate-15min-45min.en.tex,v 1.5 2007/01/28 20:48:23 tantau Exp $
 
-\documentclass[smaller]{beamer}
+\documentclass[smaller, hyperref={colorlinks=true}]{beamer}
 \mode<presentation>
 {
   \usetheme{Singapore}
@@ -14,9 +14,11 @@
 
 \usepackage[czech]{babel}
 % or whatever
+
 \usepackage[utf8]{inputenc}
 \usepackage{fancyvrb}
 \usepackage{multicol}
+
 % or whatever
 
 %\usepackage{times}
@@ -162,20 +164,20 @@
 
 \begin{frame}{Literature} 
 \begin{itemize}
- \item Briš, Litschmannová: Statistika I., skripta VŠB Ostrava, WEB
  \item Jiří Anděl: Statistické metody, Matfyzpress, 2007, Knihovna
- \item Verzani: Using R for Introductory statistics, WEB
+ \item Briš, Litschmannová: Statistika I., skripta VŠB Ostrava, WEB
+ \item 
+ \item G. J. Kerns: Introduction to Probability and Statistics Using R, WEB
  \item http://www.r-tutor.com/
 \end{itemize}
-more on web: morf.matfyz.cz/vyuka/pas
+more on the web: morf.matfyz.cz/vyuka/pas
 \end{frame}
-
 
 \begin{frame}{Contents of the course}
  \begin{itemize}
   \item exploratory statistics ( basic data processing, graphs )
   \item basics of probability theory 
-  \item statistical analysis 
+  \item statistical analysis (inferential statistics)
   \item statistical software R (minimalistic introduction)
  \end{itemize}
 \end{frame}
@@ -277,9 +279,10 @@ Qualitative are also called ``dicrete'' ...\\
    \item graphical representation (plots)
    \item numerical representation (characteristics)
    \begin{itemize}
-       \item measures of the position (center)
+       \item measures of the position/center
        \item measures of variability    
    \end{itemize} 
+   \item support for making hypothesis about data
   \end{itemize}
 \end{frame}
 
@@ -410,7 +413,7 @@ pareto.chart(data, las=0)
 
 
 \begin{frame}{Quantitative data}
-\blue{position} : 
+\blue{measures of center (míry polohy)} : 
 \begin{description}
  \item[\df{mean}] $\ol{x} = \frac{1}{n}\sum_i x_i$
  \item[\df{median}] value in the middle in sorted list
@@ -419,7 +422,7 @@ pareto.chart(data, las=0)
  \item[\df{minimum}, \df{maximum}]
 \end{description}
 %
-\blue{variability} : 
+\blue{measures of spread (míry rozptylu)} : 
 \begin{description}
  \item[\df{sample variance}] $\sigma^2 = \frac{1}{n-1} \sum_i (\ol{x} - x_i)^2 = \frac{1}{n-1} \big( \sum_i x_i^2 - n^2\ol{x}^2 \big)$
  \item[\df{sample standard deviation}] $\sigma = \sqrt{\sigma^2}$
@@ -499,6 +502,12 @@ Removing outliers form data ??
 
 
 \section{Graphical representations}
+
+\begin{frame}{Good graphs makes you understand.}
+ See the TED talk:\\
+ \href{http://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen?language=en}{Hans Rosling: The best stats you've ever seen}
+\end{frame}
+
 
 \begin{frame}{Box plot}
 \includegraphics[scale=0.5]{01_simple_box_defs.png} 
