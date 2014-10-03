@@ -288,20 +288,22 @@ Qualitative are also called ``dicrete'' ...\\
 
 
 \section{Qualitative variables}
-
 \begin{frame}{Qualitative data - numerical characteristics}
+Set of possible values with integer labels: $H=\{1,\dots, I\}$
+
+\xskip
 \blue{Nominal variable}:\\
-       (sampled) \df{frequency} $n_i$ of value $i$, $\sum n_i = n$ \\
-       (sampled) \df{relative frequency} $p_i=n_i/n$, $\sum p_i = 1$ \\
+       (sampled) \df{frequency} $n_i$ of value $i$, $\sum_{i=1}^{I} n_i = n$ \\
+       (sampled) \df{relative frequency} $p_i=n_i/n$, $\sum_{i=1}^{I} p_i = 1$ \\
        \df{modus} - value with maximal frequency
 
 \pause
 \xskip
 
 \blue{Ordinal variable}:\\
-sorted values: $x_1 < x_2 < \dots < x_n$\\
-\df{cumulative frequency}: $m_i = \sum_{j=1}^i n_i$\\
-\df{relative cumulative frequency}: $F_i = \sum_{j=1}^i p_i = m_i / n$
+sorted values: $x_1 < x_2 < \dots < x_I$\\
+\df{cumulative frequency}: $m_i = \sum_{j=1}^i n_j$\\
+\df{relative cumulative frequency}: $F_i = \sum_{j=1}^i p_j = m_i / n$
 
 \xskip
 canonical order of nominal data (for plotting) is by descending frequencies
@@ -424,7 +426,7 @@ pareto.chart(data, las=0)
 %
 \blue{measures of spread (míry rozptylu)} : 
 \begin{description}
- \item[\df{sample variance}] $\sigma^2 = \frac{1}{n-1} \sum_i (\ol{x} - x_i)^2 = \frac{1}{n-1} \big( \sum_i x_i^2 - n^2\ol{x}^2 \big)$
+ \item[\df{sample variance}] $\sigma^2 = \frac{1}{n-1} \sum_i (\ol{x} - x_i)^2 = \frac{1}{n-1} \big( \sum_i x_i^2 - n\ol{x}^2 \big)$
  \item[\df{sample standard deviation}] $\sigma = \sqrt{\sigma^2}$
  \item[\df{inter quartile range}] $IQR = Q_3 - Q_1 = x_{0.75} - x_{0.25}$
  \item[\df{MAD}] median of absolute deviation from median 
@@ -486,7 +488,8 @@ value $x$ is outlier if
 \item MAD coordinate: $\abs{m(x)} > 3, \quad m = \frac{x - x_{0.5}}{1.483 MAD}$
 \end{enumerate}
 
-Removing outliers form data ??
+\xskip
+Remove outliers or use robust tests.
 \end{frame}
 
 \begin{frame}{Sample skewness and kurtosis}
