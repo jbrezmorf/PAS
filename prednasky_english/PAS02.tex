@@ -357,7 +357,7 @@ The triple $(\Omega, \mathcal{S}, P)$ forms the \df{probability space}\cz{pravd�
 \item system $\mathcal{S} = 2^\Omega$, contains all subsets
 \item probability of elementary events:\\
       $P(i) = p_i$, for $i\in \Omega$,\\
-      where $p_i$ are non-negative numbers and their sum is $1$, \\
+      where $p_i\ge 0$  and $\sum_i p_i=1$, \\
 \item for general event $M$:\\      
       $M = \{1,4,5\}$ is  $P(M) = p_1 + p_4 + p_5$    
 
@@ -386,9 +386,9 @@ The triple $(\Omega, \mathcal{S}, P)$ forms the \df{probability space}\cz{pravd�
        containing all intervals
 \item general probability measure;\\
 on $\Real$ we can use  \df{distribution function}\cz{distribuční funkce} $F$\\
-For interval $[a,b)$ we define
+For interval $(a,b]$ we define
 \[
-  P([a,b)) = F(a)- F(b)
+  P((a,b]) = P\big((-\infty,b] \setminus (-\infty, a]\big)=F(b)- F(a)
 \]
 probability of unions, intersections, and complements (every Borel set $A$ can be written through them)
 is defined by (P2)
@@ -424,8 +424,8 @@ P(A\cap B) = P(A|B) P(B)
 P(A_{1\dots n}) = P(A_1) P(A_2|A_1) P(A_3|A_{12}) \dots P(A_n|A_{1\dots n-1})
 \]
 
-\item restricted space $( \Omega, \mathcal S, P(\cdot| B))$ 
-\item theorem about \blue{total probability}
+\item restricted space $( B, \mathcal S, P(\cdot| B))$ 
+\item theorem about \blue{total probability}\cz{úplná pravděpodobnost}
 \[
   P(A) = \sum_i P(D_i) P(A|D_i)
 \]

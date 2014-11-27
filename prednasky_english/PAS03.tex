@@ -250,17 +250,44 @@ Contrarily, every DF determines a random variable:
 
 
 \begin{frame}{ECDF}
-\blue{Empirical (Cumulative) Distribution Function}\cz{Empirická distribuční funkce}
+\blue{Empirical (Cumulative) Distribution Function}\\
+\cz{Empirická distribuční funkce}
+
+\xskip
 Plots estimates of probabilities of events $\{ X \le x\}$\\
 as relative frequency of data smaller then $x$.
+
+\includegraphics[scale=0.25]{01_ecdf.pdf}
 \end{frame}
 
 
-\begin{frame}{Discrete and continuous distributions}
-\df{Discrete random variable}\\
-RV $X$ with finite or countable image, that consists from values $x_i$ with probabilities $p_i$, $\sum_i p_i =1$.\\
-DF is piecewise constant, with jumps of height $p_i$ in points $x_i$.
+\begin{frame}{Discrete distribution}
 
+\df{Discrete random variable}\\
+
+\begin{itemize}
+\item RV $X$ with finite or countable image
+\item consists from values $x_i$ with probabilities $p_i$,
+\item $\sum_i p_i =1$.\\
+\item it distribution function is piecewise constant, with jumps of height $p_i$ in points $x_i$.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Examples}
+Alternative distribution, 
+\[
+    P(X=0)=a,\quad  P(X=1)=1-a 
+\]
+Binomial distribution, 
+\[
+    P(X=k) = \binom{n}{k} a^{k} (1-a)^{n-k} 
+\]
+\includegraphics[keepaspectratio=false,width=8cm,height=4cm]{03_binom_hist.pdf}
+\end{frame}
+
+
+\begin{frame}{Continuous distribution}
 \xskip
 \df{Continuous random variable}\\
 \dots if there exists a non-negative function $f_X$ such that:
@@ -275,18 +302,6 @@ Remark: Continuous RV has continuous DF.
 
 
 \begin{frame}{Examples}
-\blue{Discrete random variable}\\ 
-Alternative distribution, 
-\[
-    P(X=0)=a,\quad  P(X=1)=1-a 
-\]
-Binomial distribution, 
-\[
-    P(X=k) = \binom{n}{k} a^{k} (1-a)^{n-k} 
-\]
-
-
-\xskip
 \blue{Continuous random variable}\\
 Normal distribution
 \[
@@ -309,16 +324,31 @@ for \blue{continuous} random variable $X$:
 it may not exist, e.g. $x_i = 2^n$, $p_i = 2^{-n}$ or $f(x)=\frac{1}{1+x^2}$\\
 
 \xskip
-linearity: $E(aX+bY) = aEX + bEY$\\
+linearity: $E(aX+bY) = aEX + bEY$
+\end{frame}
+\begin{frame}{Law of the unconsious statistician}
 expectation of \blue{transformed RV} $Y = h(X)$: 
 \[
- EY =  E h(X) = \int_{-\infty}^{+\infty} h(x) f_X(x) \d x
+ EY =  E y(X) = \int_{-\infty}^{+\infty} y(x) f_X(x) \d x
+\]
+For discrete case it is clear:
+\[
+   EY = \sum_i y_i p_i = \sum_i y(x_i) p_i
 \]
 
+
+Similarly for continuous case, use same probability diferencials:
+\[
+   f_Y(y) \d y = \d F_Y(y(x)) = \d F_X(x) = f_X(x) \d x
+\]
+Thus
+\[
+   EY = \int_{-\infty}^{+\infty} y f_Y(y) \d y = \int_{-\infty}^{+\infty} y(x) f_X(x) \d x
+\]
 \end{frame}
 
 \begin{frame}{Example of calculation}
- \dots
+
 \end{frame}
 
 
@@ -334,7 +364,7 @@ expectation of \blue{transformed RV} $Y = h(X)$:
 \df{variance}: $DX$, $\sigma^2$, $var(X)$: 
 \begin{multline*}
   \mu_2(X) = DX = E( (X-EX)^2 ) = \\
-E( X^2 + (EX)^2 - 2X EX) = E(X^2) - (EX)^2 = \mu'_2 - \mu'_1
+E( X^2 + (EX)^2 - 2X EX) = E(X^2) - (EX)^2 = \mu'_2 - (\mu'_1)^2
 \end{multline*}
 \df{standard deviation}: $\sigma = \sqrt{\sigma^2}$\\
 skewness: $\alpha_3 = \mu_3/\sigma^3$\\

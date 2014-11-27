@@ -161,10 +161,12 @@
 
 \begin{frame}{Motivation}
  \begin{itemize}
-  \item  We perform a measurement with normal distributed error. but we do not know parameters $\mu$ and $\sigma^2$.
+  \item  We perform a measurement with normal distributed error, but we do not know parameters $\mu$ and $\sigma^2$.
     How can we estimate them from measured data? How precisely?
+  \pause  
   \item What max. number of defects can producer guarantee in package of 100 products so that probability to warranty claim is less then 1\%?\\
         That is: binomial distribution, unknown $p$, and we want to estimate $1\%$-quantile.
+  \pause      
   \item We compare two drugs against blood coagulation (srážlivost). What is the difference in their efficiency?
  \end{itemize}
 
@@ -179,7 +181,7 @@ $\vc \theta \in \Theta \subset \Real^N$, i.e.
 \]
 
 \xskip
-\blue{The problem:} For known $F(x,\vc theta)$ and $n$ find a vector function (statistics) $\vc T_n(\vc X)$ that can estimate parameter $\vc \theta$.
+\blue{The problem:} For known $F(x,\vc \theta)$ and $n$ find a vector function (statistics) $\vc T_n(\vc X)$ that can estimate parameter $\vc \theta$.
 
 Result $\vc T_n$ is a new random variable.
 
@@ -196,7 +198,7 @@ Further,  we consider only scalar statistics (single parameter estimate) $T_n(\v
             \E X_i = \mu \approx T_n(\vc X) = \frac{1}{n} \sum_i X_i
         \]
 
-  \item Estimate of the probability $p$ of a binomial RV, is the sample relative frequency $n_i / n$.
+  \item Estimate of the probability $p$ (proportion) of a binomial RV, is the sample relative frequency $n_i / n$.
 
   \item Estimate of variance is  sample variance.
         \[
@@ -213,8 +215,13 @@ Further,  we consider only scalar statistics (single parameter estimate) $T_n(\v
   The expectation of the estimate, $E_\theta T_n$, is equal to the true parameter $\vc \theta$.
   
   \xskip
-  \blue{Consistency \cz{konzistence}:}\\
-  $T_n(\vc X)$ converge (strongly) to $\vc \theta$ for $n\to \infty$.
+  \blue{(weak) Consistency \cz{konzistence}:}\\
+  $T_n(\vc X)$ converge (in probability) to $\vc \theta$ as $n\to \infty$, \\
+  i.e. for any $\epsilon>0$:
+  \[
+     \lim_{n\to \infty} P\{ \abs{T_n -\theta} \le \epsilon\}=1
+  \]
+
 
   \xskip
   \blue{Efficiency \cz{efficientní odhad}:}\\
@@ -273,8 +280,9 @@ n\sigma^2 - \sigma^2
    \lim_{n\to \infty} T_n(\vc X) = \theta
 \]
 with probability $1$. I.e. almost sure convergence.
+
 \xskip
-Example:
+\blue{Example:}
 Strong law of big numbers proofs, that sample mean is converge to the true mean value and thus
 it is consistent estimate.
 \end{frame}

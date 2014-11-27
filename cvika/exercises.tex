@@ -89,7 +89,7 @@
 \def\prtl{\partial}                                        % partial deriv.
 \def\Names#1{{\scshape #1}}
 \def\rem#1{{\parskip=0cm\par!! {\sl\small #1} !!}}
-\def\reseni#1{\par{\bf Řešení:}#1}
+%\def\reseni#1{\par{\bf Řešení:}#1}
 %
 %
 % ******************************************* DOCUMENT NOTATIONS
@@ -98,9 +98,10 @@
 %
 
 
-\def\result#1{{\color{green} #1}}
-\def\answer#1{{\color{red} #1}}
-%\def\answer#1{}
+%\def\result#1{{\color{green} #1}}
+\def\result#1{}
+%\def\answer#1{{\color{red} #1}}
+\def\answer#1{}
 
 \addtolength{\textwidth}{3cm}
 \addtolength{\textheight}{4.5cm}
@@ -124,8 +125,6 @@
 % Z praxe: stihly se jen prvni dve sekce, podrobneji rozepsat, spis primo prikazy ktere mohou zadat a zjistit co to dela
 % 
 
-
-
 \subsection{Vectors and Matrices}
 
 \begin{enumerate}
@@ -133,17 +132,21 @@
  \item create a vector \verb'vx' with elements $-2,\;1,\;1.3,\;5.4$;
  \item compute length, sum, and mean for \verb'vx', compute \verb'gauss_vx'
  \item print even elements, print elements greater then $1$; print \verb'vx[0]' and \verb'vx[5]'
- \item get help for \verb'seq', create vector form interval $-1,1$ with step $0.1$
+ \item get help for \verb'seq', create vector from interval $-1,1$ with step $0.1$
  \item get help for \verb'factor', create factor from vector \verb'c(1,3,2,1,2)', use labels A, B, C.
- \item create (regular) matrix $2\times 2$ and find its inverse
+ \item create any (regular) matrix $2\times 2$ and find its inverse; check its validity
 \end{enumerate}
 
 \subsection{Dataframes and plots}
 \begin{enumerate}
- \item get help for dataset \verb'chickwts', rename feed to diet
+ \item get help for dataset \verb'chickwts', rename \verb'feed' to \verb'diet'
  \item unstack the dataset to list of named vectors, stack it back
  \item make stripchart, use different colors, filled points, add title
+ % striptchart(chickwts$weigth~chickwts$feed)
+ % stripchart( chickwts$weight ~ chickwts$feed, las=2, col=rev(c('yellow','brown','red','blue', 'orange', 'black')), method="stack", pch=16)
  \item make boxplot for individual groups, horizontal
+ % boxplot( weight ~ feed, data=chickwts, col=rev(c('yellow','brown','red','blue', 'orange', 'gray')), horizontal=T, names=levels(chickwts$feed))
+ % axis(2, labels=levels(chickwts$feed), at=1:6, las=2)
  \item put both into same plot
  \item use read.table to read in file \verb'cars.txt' as \verb'cars_df'
  \item \verb'attach' it; make scatterplot with plot command
@@ -176,8 +179,8 @@
 What is probability to throw a sequence when throwing 6 dices? \result{$0.0154$}
 Check answer numericaly using: 
 \begin{verbatim}
-gen=r...(100000, 6, rep(1,6)/6)
-is_seq=function(c) isTRUE(all.equal(...))
+gen=rmultinom(100000, 6, ...)
+is_seq=function(vec) prod(vec - ...)
 sum(apply(gen,2, is_seq)) ...
 \end{verbatim}
 
@@ -217,6 +220,12 @@ the set of positive integers not exceeding $100$ is divisible by either $2$ or $
 Three machines has probabilities $0.8$, $0.7$, $0.4$ to produce a right component. 
 What is probability that you obtain exactly one right component? What are probabilities
 that this component was produced by 1., 2., 3. machine. 
+\answer{
+\[
+    P(A)=P(A_1'A_2A_3 + A_1 A_2'A_3 + A_1A_2 A_3')
+\]
+]
+}
 \result{
 \[
         P(A) = 0.252,\quad 
@@ -244,14 +253,56 @@ A retail store carries a product that is supplied by three manufactures, A (30\%
 Percentage of defective products of these supliers are: 2\%, 3\%, and 5\%, respectively.
 \begin{enumerate}
  \item If a product is randomly selected from this store, what is the probability that it is
-defective? \answer{ $0.3*0.02 +0.2*0.03 + +0.5*0.05 = 0.037$ }
+defective? \answer{ $P(D|A)P(A) + \dots=0.3*0.02 +0.2*0.03 + +0.5*0.05 = 0.037$ }
  \item If a defective product is found what is the probability that it was from A? Same for B and C.
- \answer{ $0.162$, $0.162$, $0.676$}
+ \answer{ 
+ $P(A|D)=P(D|A)P(A)/P(D)=0.162$, $0.162$, $0.676$
+ }
 \end{enumerate}
 
 
 \pagebreak
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Excercise 3}
+% Priklady na pouziti konkretnich rozdeleni, nahodne veliciny, nahodne vektory
+\subsection{Uniform distribution}
+Compute expectance and variance of uniform distribution over interval $[a,b]$.
+Draw graf of its probability density function and its cumulative distribution function.
+
+\subsection{Discrete variable}
+Consider disrete random variable $X$ getting values $x_i=0,\dots,4$ with probabilities $p_i=n_i/16$, where
+$n_i=1,4,6,4,1$.
+
+\begin{enumerate}
+ \item Draw its distribution function (in R). Ingredients: \verb'cumsum' and \verb'stepfun'.
+ \item Plot distribution function, determine median, and quartiles.
+ \item Compute expectation and variance without using \verb'mean' and \verb'var' functions.
+\end{enumerate}
+
+\subsection{Choose distribution 1}
+A complex electrical instrument consists of 1000 components. Probability of a defect of one component over one year is $p=0.001$
+and it is independent of defect of other components.
+\begin{enumerate}
+ \item Choose suitable theoretical discrete random variable to describe number of defects over one year. 
+ \item Determine probability of two defects over one year.
+ \item Determine probability of at least two defects over one year.
+\end{enumerate}
+
+\subsection{Choose distribution 2}
+Products are sorted into two classes according its quality. Probabily of a first class product is 70\% and
+probability of the second class product is 30\%. Determine probability to get 15 products of the second class 
+in a set of 20 products.
+
+\subsection{Choose distribution 3}
+% Moc cviceni 8/3
+% not clear why it works, see R_experiments
+
+
+
+\pagebreak
+nic
+\pagebreak
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Exercise 4}
 
@@ -434,6 +485,13 @@ Test that data are comming from Poisson distribution (Goodness of fit).
 %func <- function(l) { pp=dpois(0:6,l); pp[8]=1-sum(pp); x=chisq.test(b_freq, p=pp); return <- 1-x$p.value }
 %optimise(func, interval=c( lambda-0.2, lambda+0.2) )
 
+\noindent
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Exercise 7}
+% Regrese, ANOVA, kontingencni tabulky
 
 %4) example(InsectSpray)
 %

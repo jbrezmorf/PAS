@@ -1,4 +1,4 @@
-
+  
 % $Header: /cvsroot/latex-beamer/latex-beamer/solutions/generic-talks/generic-ornate-15min-45min.en.tex,v 1.5 2007/01/28 20:48:23 tantau Exp $
 
 \documentclass[smaller]{beamer}
@@ -180,8 +180,8 @@ Can we avoid this somehow?
 \end{frame}
 
 \begin{frame}{Hypothesis testing - example}
-\blue{Example}  ČSSD gained $30\%$ in the last votes, survey after half a year, $59$ respondents, $25\%$. Can we conclude that 
-there is a drop in preferences with probability $80\%$?
+\blue{Example}  A political party gained $30\%$ in the last votes, survey after half a year, $59$ respondents, $25\%$. Can we be $80\%$ sure that 
+there is a drop in preferences from the previous votes?
 
 \df{null hypothesis} (no drop): $H_0: \pi = \pi_0 = 0.3$ \\
 \df{alternative hypothesis} (drop): $H_A: \pi < \pi_0$
@@ -210,7 +210,7 @@ there is a drop in preferences with probability $80\%$?
 $u(\alpha) = -u(0.8) \approx -0.8416 < U$, can not reject $H_0$ 
 
 \xskip 
-... on the edge
+... but its on the edge
 \end{frame}
 
 
@@ -223,7 +223,7 @@ $u(\alpha) = -u(0.8) \approx -0.8416 < U$, can not reject $H_0$
  \pause
  \item Determine distribution function of the statistics.
  \pause
- \item Select the significance level \cz{hladina významnosti} $\alpha$.
+ \item Select the significance level \cz{hladina významnosti} $\alpha$ giving probability of Type I. error or confidence level $1-\alpha$
  \pause
  \item Construct \df{critical region} $C(\alpha)$ (for rejection), using quantile function (inverse of distribution).
  \pause
@@ -240,14 +240,17 @@ the parameter in hypothesis. Then the inequality for hypothesis match inequality
 \df{error of the first kind} - with probability $\alpha$, WRONG rejection of $H_0$
 
 \xskip
-\df{error of the second kind} - do not reject $H_0$ that doesn't hold,  minimize using larger sample 
-   or better test (ASSUMPTIONS !!)
+\df{error of the second kind} - wit probability $\beta$, do not reject $H_0$ that doesn't hold,\\
+    minimize using larger sample or better test (ASSUMPTIONS !!)
+    Power of the test: $1-\beta$
    
 \xskip
 \begin{center}
  \includegraphics[scale=0.35]{./08_error_kinds.png}
  % 08_error_kinds.png: 1098x206 pixel, 96dpi, 29.05x5.45 cm, bb=0 0 823 154
 \end{center}
+
+
 \end{frame}
 
 \begin{frame}{Test about mean value (normal, known $\sigma$)}
@@ -296,6 +299,29 @@ the parameter in hypothesis. Then the inequality for hypothesis match inequality
 \[ p= 2\min\{1-F(Z_{obs}) , F(Z_{obs})\} < \alpha\]   
 \end{frame}
 
+\begin{frame}{Error of II. kind, reading test example}
+Probability $\beta$ of not rejecting $H_0$ for various values of $\mu$. 
+\begin{align*}
+  1-\beta&=P\left\{ \frac{\ol{X} -\mu_0}{\sigma}\sqrt{n} < u(\alpha)| EX=\mu \right\}\\
+  &=P\left\{ \frac{\ol{X} -\mu}{\sigma}\sqrt{n} < \frac{\mu_0-\mu}{\sigma}\sqrt{n}+u(\alpha)| EX=\mu \right\}\\
+  &=F_{N(0,1)}\Big(\frac{\mu_0-\mu}{\sigma}\sqrt{n}+u(\alpha) \Big)
+\end{align*}
+\blue{Example (reading test):}
+  $\mu_0=124$, $S_n = 12$, $n=55$, $\alpha=0.05$, $u(\alpha) = -1.64$ \\
+  \[
+    \beta(\mu)=1-F(\frac{124-\mu}{12}\sqrt{55} - 1.64)
+  \]
+
+\end{frame}
+
+\begin{frame}{Error of II. kind, continued}
+    \begin{center}
+    \includegraphics[scale=0.35]{./08_second_error.pdf}
+    % 08_error_kinds.png: 1098x206 pixel, 96dpi, 29.05x5.45 cm, bb=0 0 823 154
+    \end{center} 
+\end{frame}
+
+
 \begin{frame}[fragile]{Test about mean value (normal, unknown $\sigma$)}
 \df{$t$-test}, statistic:
 \[
@@ -338,20 +364,6 @@ mean of x
 \end{verbatim}
 \end{frame}
 
-\begin{frame}{Error of II. kind}
-Probability $beta$ of this error depends on the true value of $\mu$. Power of test $1-\beta$:
-\begin{multline*}
-  1-\beta=P\left\{ \frac{\ol{X} -\mu_0}{S_n}\sqrt{n} < t_{n-1}(\alpha)| EX=\mu \right\} = \\
-  P\left\{ \frac{\ol{X} -\mu}{S_n}\sqrt{n} < \frac{\mu_0-\mu}{S_n}\sqrt{n}-t_{n-1}(\alpha)| EX=\mu \right\} =\\
-  F_{t_{n-1}}\Big(\frac{\mu_0-\mu}{S_n}\sqrt{n}-t_{n-1}(1-\alpha) \Big)
-\end{multline*}
-\blue{Example (reading test):}
-  $\mu_0=124$, $S_n = 12$, $n=55$, $\alpha=0.05$, $t_{54}(0.95) = 1.67$ \\
-  \[
-    \beta(\mu)=1-F(\frac{124-\mu}{12}\sqrt{55} - 1.67)
-  \]
-
-\end{frame}
 
 
 

@@ -492,16 +492,7 @@ value $x$ is outlier if
 Remove outliers or use robust tests.
 \end{frame}
 
-\begin{frame}{Sample skewness and kurtosis}
-\df{skewness}:
-\[
-\alpha = \frac{n}{(n-1)(n-2)}\frac{\sum_{i=1}^{n} (x_i - \overline{x})^3}{s^3}
-\]
-\df{kurtosis}
-\[
-\beta = \frac{n(n+1)}{(n-1)(n-2)(n-3)}\frac{\sum_{i=1}{n} (x_i-\overline{x})^4}{s^4} - \frac{3(n-1)^2}{(n-2)(n-3)}
-\]
-\end{frame}
+
 
 
 \section{Graphical representations}
@@ -551,6 +542,33 @@ usage: histogram, statistic methods for discrete variables (goodness-of-fit)
 \end{enumerate}
 \end{frame}
 
+\begin{frame}{Sample skewness and kurtosis}
+\df{skewness}:
+\[
+\alpha = \frac{n}{(n-1)(n-2)}\frac{\sum_{i=1}^{n} (x_i - \overline{x})^3}{s^3}
+\]
+\df{kurtosis}
+\[
+\beta = \frac{n(n+1)}{(n-1)(n-2)(n-3)}\frac{\sum_{i=1}{n} (x_i-\overline{x})^4}{s^4} - \frac{3(n-1)^2}{(n-2)(n-3)}
+\]
+\end{frame}
+
+\begin{frame}{Meaning of skewness and kurtosis}
+\begin{center}
+\includegraphics[scale=0.6]{01_skewkurt.jpg} 
+\end{center}
+\end{frame}
+
+
+%\begin{frame}{R overview}
+%\begin{itemize}
+% \item creating a vector: \verb'vx=c(1,2,3)'
+% \item operations are elementwise: \verb'c(1,2)*c(3,4)' gives \verb'[3,8]'
+% \item for scalar product (and matrix multiplication) use: \verb'va %*% vb'
+% \item can obtain subvectors: \verb'v[1:5]', \verb'v[seq(1,6,2)]', \verb'v[v>3]' 
+%\end{itemize}
+%\end{frame}
+%
 
 
 \end{document}
