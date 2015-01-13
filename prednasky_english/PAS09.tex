@@ -201,6 +201,9 @@ Computing  $p$-value
 
 
 \begin{frame}[fragile]{Wilcoxon test}
+also called \blue{Mann–Whitney U test}
+
+\xskip
 $\{X_1,\dots,X_n\}$ sample from continuous distribution,\\
 \blue{symmetric} around median $\tilde{x}$, i.e. $f(\tilde{x} + x) = f(\tilde{x} -x)$
 
@@ -478,10 +481,10 @@ We reject $H_0:\sigma_1 = \sigma_2$ in favor  $H_A: \sigma_1\ne\sigma_2$ if
 \begin{frame}[fragile]{$F$-distribution}
 Distribution of ratio of two $\chi^2$ random variables.
 \[
-    \frac{m \chi_n^2}{n \chi_m^2} \sim F_{n,m}
+    \frac{ \frac{\chi_n^2}{n} } { \frac{\chi_m^2}{m} } \sim F_{n,m}
 \]
 \[
- T=\frac{s^2_X}{s^Y}=\frac{m-1}{n-1} \frac{\frac{s^2_X(n-1)}{\sigma^2}}{\frac{s^2_Y(m-1)}{\sigma^2}} \sim F_{n-1,m-1}
+ T=\frac{s^2_X}{s^2_Y}=\frac{m-1}{n-1} \frac{\frac{s^2_X(n-1)}{\sigma^2}}{\frac{s^2_Y(m-1)}{\sigma^2}} \sim F_{n-1,m-1}
 \]
 
 

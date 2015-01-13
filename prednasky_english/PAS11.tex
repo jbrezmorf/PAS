@@ -194,15 +194,18 @@ Group 3:
 
 \end{frame}
 
-
+\begin{frame}{Exploratory statistics}
+\end{frame}
 \begin{frame}{General problem}
   \begin{itemize}
    \item Comparison of mean values within several samples (groups)\\
    \item groups $i \in I$, ($I$, $I>2$).\\
-   \item random vectors $Y_{i,j} = \mu_i+e$, $e~N(0,\sigma^2)$
-   \item assuming same error $e$ !!
+   \item random vectors $Y_{i,j} = \mu_i+e$
+   \item $\mu_i$ is a parameter
+   \item error $e$ is random, $e \sim N(0,\sigma^2)$
+   \item assuming same error $e$ 
    \item $H_0: \mu_1=\mu_2=\dots\mu_I=\mu$      
-   \item We are testing if the mean value depneds on the group/treatement.
+   \item We are testing if the mean value depends on the group/treatement.
  
   \end{itemize}
 
@@ -211,7 +214,7 @@ Group 3:
 \begin{frame}{Notation}
  $Y_{11}, \dots, Y_{1n_1}$ selection from $N(\mu_1, \sigma^2)$,\\
  \dots,\\
- $Y_{I1}, \dots, Y_{In_1}$ selection from $N(\mu_I, \sigma^2)$,\\
+ $Y_{I1}, \dots, Y_{In_I}$ selection from $N(\mu_I, \sigma^2)$,\\
  Assuming same variance $\sigma^2$ for all groups.
 
 \xskip
@@ -224,7 +227,6 @@ total average:
 \[
  Y_{..} = \sum_{i_1}^{I}\sum_{j=1}^{n_i} Y_{ij},\quad \ol{Y} = \frac{Y_{..}}{n}
 \]
-
 \end{frame}
 
 \begin{frame}{Sum of squares}
@@ -400,7 +402,7 @@ samples (groups) $i\in I$:\\
 \[
     \{Y_{ij}\}, j< n_i
 \]
-assume $Y_{ij} \sim X_i$ with same unknown variance $DX_i = \sigma$.
+assume $Y_{ij} \sim X_i$, $X_i$ is any distribution.
 
 \xskip
 $H_0: F_{X_i}^{-1}(0.5) = x_{0.5}$
@@ -414,8 +416,9 @@ $H_A:$ different medians
  \item sort all data $Y_{ij}$
  \item determine ranks $R_{ij}$, possibly average rank over same values\\
  \begin{tabular}{llllllll}
-  values:& 33& 34& 34& 34& 35& 35& 37\\ 
-  ranks: & 1 & 3 & 3 & 3 &4.5&4.5& 6
+  values:& 33& 34& 34& 34& 35& 35& 37\\
+  ranks: & 1 &  2&  3&  4&  5&  6&7\\
+  tie correction: & 1 & 3 & 3 & 3 &5.5&5.5& 7
  \end{tabular}
  \item per group rank sums:
  \[
@@ -445,12 +448,22 @@ $H_A:$ different medians
 data:  conc by resp
 Kruskal-Wallis chi-squared = 4.1852, df = 2, p-value = 0.1234
 \end{verbatim}
+
+\xskip
+Test is particularly sensitive to the shift of distributions.
 \end{frame}
 
-\begin{frame}{KW posthoc analysis}
- 
-\end{frame}
+\begin{frame}[fragile]{KW posthoc analysis}
+\blue{General approach:}\\
+\begin{enumerate}
+  \item Apply Wilcoxon test (U-test) to every pair of groups.
+  \item Use one of general correction methods, e.g. Bonferroni, Holm, ...
+\end{enumerate}
 
+\xskip
+\blue{(In R:}
+\verb'pairwise.wilcox.test(x, factor, p.adjust.method=...)'
+\end{frame}
 
 \begin{frame}{Multifactor ANOVA}
  

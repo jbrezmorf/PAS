@@ -404,7 +404,12 @@ or using F-distribution:
 \[
   F_{Bi(n,\pi)}(s) = F_{df_1,df_2} \Big(\frac{df_2(1-\pi)}{df_1\pi}\Big),\ df_1=2(n-s),\ df_2=2(s+1)
 \]
-\blue{Example:}
+\end{frame}
+
+\begin{frame}[fragile]{Proportion test Example}
+Party planes to get $30\%$ in votes, survey conting $50$ people gives them $25\%$.
+Is it significantly lower?
+
 $\pi_0 = 0.3, p=0.25, n=50$, $H_A: \pi < \pi_0$
 
 $s=0.25*50=12.5$, $F_{75,25}( 0.84 ) = 0.27$
@@ -415,6 +420,12 @@ $s=0.25*50=12.5$, $F_{75,25}( 0.84 ) = 0.27$
 {\small
 \verb'R> prop.test(0.25*50, n=50, p=0.3, alternative="less", conf.level=0.7)' 
 }
+
+%For which $n$ it could be significant? 
+
+%\[
+%  n= \frac{p - \pi}{\sqrt{\pi(1-\pi)}}
+%\]
 \end{frame}
 
 

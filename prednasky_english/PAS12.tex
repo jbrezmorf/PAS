@@ -22,7 +22,7 @@
 % does not look nice, try deleting the line with the fontenc.
 
 
-\title{PAS11 -- Regresní analýza, Lineární model}
+\title{PAS12 -- Regresní analýza, Lineární model}
 
 \author{Jan B\v rezina}
 \institute % (optional, but mostly needed)
@@ -172,7 +172,7 @@ deformation $Y_i$ & 14 & 35 & 48 & 61 & 80 & 93\\
 
 \xskip
 \begin{itemize}
-  \item We assume, that $x_i$ are precise (e.g. calibrated weights).
+  \item We assume, that $x_i$ are exact, without error.
   \item We want to test hypothesis about linear dependency: $y_i= \beta x_i + e_i$.
   \item We assume that $e_i \sim N(0,\sigma^2)$ is independent of $x_i$.
   \item How to get estimate for parameter $\beta$ of the model?
@@ -198,7 +198,7 @@ deformation $Y_i$ & 14 & 35 & 48 & 61 & 80 & 93\\
 \end{frame}
 
 
-\begin{frame}{Regresní přímka procházející počátkem}
+\begin{frame}{Regression line through origin}
  máme 2 sady dat: $\{X_i\}$, $\{Y_i\}$, $i=1,\dots,n$
  předpokládejme závislost ve tvaru:
  \[
@@ -209,11 +209,13 @@ deformation $Y_i$ & 14 & 35 & 48 & 61 & 80 & 93\\
 \end{frame}
 
 \begin{frame}{Metoda maximální věrohodnosti}
- Hledáme parametr $b$, tak aby hustota pravděpodobnosti $f$ byla pro vektor $Y$ maximální:
- \[
+ Hustota pravděpodobnosti pro náhodný vektor $\vc Y$ je
+  \[
    f(Y;b,\sigma) = \frac{1}{(2\pi)^{n/2}\sigma^n} exp\Big\{ -\frac{1}{2\sigma^2} \sum_{i=1}^{n} (Y_i - b X_i)^2 \Big\}
  \]
- To platí tehdy pokud je exponent minimální. Položíme parciální derivace rovné nule a dostaneme:
+
+ Maximalizujeme $f$ vzhledem k $b$, tj. minimalizujeme exponent. 
+ Položíme parciální derivace rovné nule:
  \[
     \big(\sum_{i=1}^n X_i^2\big) b = \sum_{i=1}^n X_iY_i 
  \]
@@ -270,14 +272,105 @@ Consider $n$ measurements of a quantity $Y$, that possibly depends on $k$ quanti
 \[
    \vc{Y} = \sum_{j=1}^k \vc{X_j} \beta_j + \vc{e} = \tn X \vc{\beta} + \vc e
 \]
-We assume, $\E \vc e = \vc 0$, $var \vc e = \sigma^2 \tn I$. $\sigma^2$ is unknown, $X_{ij}$ are exact.
+Assume, $\E \vc e = \vc 0$, $var \vc e = \sigma^2 \tn I$. \\
+$\sigma^2$ is unknown, $X_{ij}$ are exact.
 Determine estimate of $\vc \beta$ by minimization of:
 \[
    S(\vc b) = (\vc Y -\tn X\vc b)^T (\vc Y - \tn X\vc b)
 \]
-\dots
+Point estimate:
+\[
+    \vc b = \big( \tn X' \tn X \big)^{-1} \tn X' \vc Y
+\]
+Residual sum of squares:
+\[
+    S_e=(\vc Y -\tn X \vc b)^2
+\]
+Residual variance:
+\[
+ s^2 = S_e/(n-k) 
+\]
 
 \end{frame}
+
+\begin{frame}{Test in general model}
+Denote $v_{ij}$ elements of the inverse $\big( \tn X' \tn X \big)^{-1}$, $v_{ii}$ are diagonal entries.
+Statistic
+\[
+  T_i = \frac{b_i - \beta_i}{\sqrt{s^2 v_{ii}}}
+\]
+have Student distribution $t_{n-k}$.
+\end{frame}
+
+\begin{frame}{Application: General line fit}
+Model:
+\[
+  Y_i=\beta_0 + \beta_1 x_i + e_i
+\]
+Vector notation:
+\[
+    \vc Y = \tn X\vc \beta, \qquad
+    \tn X =
+    \begin{pmatrix}
+        1 & x_1\\
+        \dots \\
+        1 & x_n    
+    \end{pmatrix}    
+\]
+\end{frame}
+
+
+\begin{frame}{Parameter estimates:}
+\[
+ b_1=\frac{\sum x_i Y_i - n\ol{x}\ol{Y}}
+{\sum x_i^2 - n \ol{x}^2}
+\]
+\[
+ b_0=\ol{Y}-b_1\ol{x}
+\]
+\[
+  s^2 =\frac{\sum (Y_i-b_0 - b_1X_i)^2}{n-2}
+\]
+\end{frame}
+
+
+\begin{frame}{Anscombe's quartet}
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=0.3]{./12_Anscombe's_quartet.pdf}
+ % 12_Anscombe's_quartet.svg: 990x720 pixel, 72dpi, 34.92x25.40 cm, bb=0 0 990 720
+\end{figure}
+\end{frame}
+
+\begin{frame}{Leverage\cz{Pákový efekt}}
+Line tangent is weighted average of lines connecting points $(\ol{x},\ol{Y})$  and $(x_i, Y_i)$.
+\[
+   b_1 =  \sum_i w_i tg \alpha_i
+\]
+
+\xskip
+
+\[
+    w_i = \frac{(x_i - \ol{x})^2}{\sum_j (x_j - \ol{x})^2}
+\]
+
+\xskip
+
+\[
+    tg \alpha_i = \frac{Y_i - \ol{Y}}{x_i - \ol{x}}
+\]
+thus erros in points far from barycenter have significant impact on estimate.
+
+\xskip
+Levrage coefficient $h_ii$
+\[
+    \tn H = \tn X \big( \tn X' \tn X \big)^{-1}\tn X'
+\]
+\xskip
+R software: example(cars)
+\end{frame}
+
+
 
 
 
