@@ -504,7 +504,38 @@ Test that data are comming from Poisson distribution (Goodness of fit).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Exercise 7}
-% Regrese, ANOVA, kontingencni tabulky
+% QQ, graph, Regrese, ANOVA, kontingencni tabulky
+
+\subsection{QQ plot}
+\begin{enumerate}
+ \item Generate a vector of normaly distributed data (1000 elements).
+ \item Use \verb'qqnorm' to produce QQ plot.
+ \item Try \verb'qqnorm' for $\chi^2$ distribution for $df=4,10,30$
+ \item Make a selection from Exponential distribution with $\lambda=1.2$.
+ \item Try \verb'qqnorm' 
+ \item Estimate $\lambda$.
+ \item Make a QQ plot using \verb'ppoints' a \verb'qqplot'.
+ %  dexp=rexp(1000, 1.5)
+ %  qqplot(qexp(ppoints(1000), 1.5),dexp)\ 
+\end{enumerate}
+
+\subsection{Corellation (A15)}
+download datafile: \verb'http://atrey.karlin.mff.cuni.cz/~morf/vyuka/pas/cvika/cvika_6_asfalt.dat'
+Melting point of asphalt and penetration into asphalt at 25\textdegree C
+
+\begin{itemize}
+ \item Are they independent? We assume 2D normal distribution.
+
+ \item plot data to "see" dependency
+ \item use various methods of cor.test
+\end{itemize}
+
+\subsection{Regression}
+% Volf, Regrese, Z02
+Test acceleration of a vehicle, the distance $s$ was measured for given times $t$. 
+Fit a quadratic model, compare it to linear and constant submodel.
+Data are at \verb'http://atrey.karlin.mff.cuni.cz/~morf/vyuka/pas/cvika/cvika_7_vehicle.dat'.
+
 
 %4) example(InsectSpray)
 %
